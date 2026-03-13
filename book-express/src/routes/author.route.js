@@ -15,7 +15,8 @@ router
     .route("/authors/:id")
     .get(getAuthorById)
     .put(authenticate, updateAuthor)   
-    .delete(authenticate, authorize("admin","librarian"), deleteAuthor)    
+    .delete(deleteAuthor)    
+    // .delete(authenticate, authorize("admin","librarian"), deleteAuthor)    
 
 export default router
 
