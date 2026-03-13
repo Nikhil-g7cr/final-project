@@ -1,0 +1,315 @@
+{
+  "books": [
+    {
+      "_id": {
+        "$oid": "5f4fc2136980a8fb2b76e857"
+      },
+      "id": "the-accursed-god",
+      "isbn": "9781393495574",
+      "title": "The Accursed God",
+      "author": "Vivek Dutta Mishra",
+      "pages": "380",
+      "rating": "4.9",
+      "votes": "49",
+      "description": "THE LOST EPIC \n\n  The story of the epic battle of Kurukshetra has been told and retold for ages. Millennia of dust, fables, imaginations — and the epic itself is lost. What remained is the story of a family feud and ambition of Kauravas and Pandavas. But why, then, was this an epic war? Why entire Aryavart plunged into this first real world-war? Why the echo of this ancient war still resonates after all those centuries? Rediscover the lost epic whose origin lies in the birth of the Kurukshetra that had tasted its first blood over a hundred years before the final Mahabharata war. Discover the complete saga of Mahabharata which goes far and beyond just Kauravas and Pandavas and their ambitions.  THE ACCURSED GOD ================  Long before the epic battle, long before even the birth of Kurukshetra, a man swore on his father’s pyre to avenge against the mightiest empire, any civilization had ever seen. Between his might and near-certain destruction of the Empire, stood a warrior, who rose like a phoenix from the ashes of his seven dead brothers — taking the mantle of a fabled Accursed God.   In the clash that followed, Aryavart heard several more oaths by the side of more burning pyres, until, a young king decided that no price is too high for peace. Little did he know that the price would be a war engulfing the entire Aryavart, where few would live to tell the tale. And only one man can delay the inevitable if not prevent it. He is the accursed God and even he doesn’t know that destiny is like a quicksand, the more he tries to prevent it, the faster Aryavart moves towards the ultimate catastrophe.   Discover the saga of a man’s journey to that of a legendary and universally hated Accursed God, the saga of the ruthless ambitions and unfulfilled loves, endless deceits and vengeful oaths, and the saga of the battles to prevent the ultimate war.  TESTIMONIALS =============  When is the last time you finished a book and discover something? Here is a gripping and intriguing take on the greatest epic of all time through the eyes of its pivotal character that leaves your mind exhilarated, adding a fresh perspective to the tale that’s known, yet unknown. Throughout the fast action-packed book, the author masterfully blends politics, war and science and blurs the gap between love and hate, peace and war, and fiction and reality. A must-read novel which will leave you wanting for more. --- Colonel Avanish, Indian Army",
+      "tags": [
+        "epic",
+        "indian",
+        "mahabharata",
+        "bhishma",
+        "history"
+      ],
+      "price": 399,
+      "series": "The Lost Epic",
+      "seriesIndex": "1",
+      "cover": "https://m.media-amazon.com/images/I/41-KqB1-cqL._SY346_.jpg",
+      "reviews": [
+        {
+          "title": "",
+          "body": "its a very good book",
+          "rating": 4,
+          "reviewer": "Vivek Dutta Mishra",
+          "bookId": "the-accursed-god"
+        },
+        {
+          "title": "",
+          "body": "it's very nice book. ",
+          "rating": 5,
+          "reviewer": "nikhil",
+          "bookId": "the-accursed-god"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "5f4fb4e66980a8fb2b76e84c"
+      },
+      "isbn": "1408855658",
+      "title": "Harry Potter and the Philosopher's Stone",
+      "id": "harry-potter-and-the-philosophers-stone",
+      "author": "JK Rowling",
+      "pages": "384",
+      "rating": "4.7",
+      "votes": "8518",
+      "description": "Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.\n\nHarry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!\nHaving now become classics of our time, the Harry Potter ebooks never fail to bring comfort and escapism to readers of all ages. With its message of hope, belonging and the enduring power of truth and love, the story of the Boy Who Lived continues to delight generations of new readers.",
+      "tags": [
+        "harry potter",
+        "fiction",
+        "fantasy",
+        "best-seller"
+      ],
+      "series": "Harry Potter",
+      "seriesIndex": "2",
+      "cover": "https://m.media-amazon.com/images/I/51UoqRAxwEL.jpg",
+      "price": 500,
+      "reviews": []
+    },
+    {
+      "_id": {
+        "$oid": "5f4fbe4c6980a8fb2b76e854"
+      },
+      "isbn": "0007527519",
+      "title": "Five Little Pigs",
+      "id": "five-little-pigs",
+      "author": "Agatha Christie",
+      "pages": "288",
+      "rating": "4.6",
+      "votes": "605",
+      "description": "Beautiful Caroline Crale was convicted of poisoning her husband, yet there were five other suspects: Philip Blake (the stockbroker) who went to market; Meredith Blake (the amateur herbalist) who stayed at home; Elsa Greer (the three-time divorcee) who had roast beef;Cecilia Williams (the devoted governess) who had none; and Angela Warren (the disfigured sister) who cried wee wee wee all the way home. It is sixteen years later, but Hercule Poirot just cant get that nursery rhyme out of his mind",
+      "tags": [
+        "fiction",
+        "detective",
+        "hercule poirot",
+        "suspense",
+        "murder"
+      ],
+      "series": "Hercule Poirot",
+      "seriesIndex": "",
+      "cover": "https://m.media-amazon.com/images/I/41ttKQ-UPHL.jpg",
+      "reviews": [],
+      "price": 250
+    },
+    {
+      "_id": {
+        "$oid": "5f4fb89d6980a8fb2b76e850"
+      },
+      "isbn": "9781408855706",
+      "title": "Harry Potter and the Half Blood Prince",
+      "id": "harry-potter-and-the-half-blood-prince",
+      "author": "JK Rowling",
+      "pages": "560",
+      "rating": "4.7",
+      "price": "490",
+      "votes": "5651",
+      "description": "When Dumbledore arrives at Privet Drive one summer night to collect Harry Potter, his wand hand is blackened and shrivelled, but he does not reveal why. Secrets and suspicion are spreading through the wizarding world, and Hogwarts itself is not safe. Harry is convinced that Malfoy bears the Dark Mark: there is a Death Eater amongst them. Harry will need powerful magic and true friends as he explores Voldemort's darkest secrets, and Dumbledore prepares him to face his destiny. These new editions of the classic and internationally bestselling, multi-award-winning series feature instantly pick-up-able new jackets by Jonny Duddle, with huge child appeal, to bring Harry Potter to the next generation of readers. It's time to PASS THE MAGIC ON .",
+      "tags": [
+        "harry potter",
+        "fiction",
+        "fantasy",
+        "best-seller"
+      ],
+      "series": "Harry Potter",
+      "seriesIndex": "6",
+      "cover": "https://cdn01.sapnaonline.com/product_media/9781408855706/md_9781408855706.jpg"
+    },
+    {
+      "_id": {
+        "$oid": "5f4fb7b36980a8fb2b76e84f"
+      },
+      "isbn": "9781408855690",
+      "title": "Harry Potter and the Order of the Phoenix",
+      "id": "harry-potter-and-the-order-of-the-phoenix",
+      "author": "JK Rowling",
+      "pages": "816",
+      "rating": "4.7",
+      "price": "549",
+      "votes": "4519",
+      "description": "Dark times have come to Hogwarts. After the Dementors' attack on his cousin Dudley, Harry Potter knows that Voldemort will stop at nothing to find him. There are many who deny the Dark Lord's return, but Harry is not alone: a secret order gathers at Grimmauld Place to fight against the Dark forces. Harry must allow Professor Snape to teach him how to protect himself from Voldemort's savage assaults on his mind. But they are growing stronger by the day and Harry is running out of time. These new editions of the classic and internationally bestselling, multi-award-winning series feature instantly pick-up-able new jackets by Jonny Duddle, with huge child appeal, to bring Harry Potter to the next generation of readers. It's time to PASS THE MAGIC ON .",
+      "tags": [
+        "harry potter",
+        "fiction",
+        "fantasy",
+        "best-seller"
+      ],
+      "series": "Harry Potter",
+      "seriesIndex": "5",
+      "cover": "https://m.media-amazon.com/images/I/51-SI2+aQ2L._SY346_.jpg",
+      "reviews": []
+    },
+    {
+      "id": "the-shadows-of-kali",
+      "isbn": "",
+      "title": "The Shadows of Kali",
+      "author": "Vivek Dutta Mishra",
+      "price": "299",
+      "cover": "https://m.media-amazon.com/images/I/714uuUWZTwL._SY522_.jpg",
+      "rating": "4.8",
+      "description": "Dive into the dark and mesmerising second installment of 'The Lost Epic' series by bestselling author Vivek Dutta Mishra. 'The Shadows of Kali' continues the gripping saga that began with 'The Accursed God', taking readers deeper into a world where dice and deceit replace traditional warfare. In this haunting tale, empires crumble silently as virtues fall into the flames of lust and arrogance. The story reveals how Shakuni and mighty warriors become mere pawns in a greater game, orchestrated by a mysterious master of destinies. As darkness rises from the ashes of failing goodness, even legendary figures like Krishna and Bhishma find themselves powerless to contain it. This isn't merely a tale of victory or defeat - it's an epic narrative of a world quietly burning, chronicling a fall so momentous that time itself forgot its origins. Experience this masterful blend of mythology and fantasy as dharma bleeds in the shadows before its ultimate fall on the battlefield. Published by Epic Quill, this Amazon #1 bestseller promises to enthral readers with its rich narrative and complex characters."
+    },
+    {
+      "id": "1",
+      "title": "this i sthe best book",
+      "author": "nikhil",
+      "price": 200,
+      "rating": 2,
+      "cover": "book.png",
+      "description": "this is the best book here"
+    }
+  ],
+  "authors": [
+    {
+      "_id": {
+        "$oid": "6137a9f246364a98d9e4ac25"
+      },
+      "name": "Mohan Das Karmchand Mahatma Gandhi",
+      "id": "mahatma-gandhi",
+      "photo": "https://media.gettyimages.com/id/102701091/photo/indian-statesman-and-activist-mohandas-karamchand-gandhi-circa-1940.jpg?s=612x612&w=0&k=20&c=Fs_x9U5FJPAZ7TgvT9hyocHz8pXUUz1uU-l8ieRz8hc=",
+      "biography": "Mohandas Karamchand 'Mahatma' Gandhi (2 October 1869 – 30 January 1948), venerated as the Mahatma, was an Indian lawyer, anti-colonial nationalist and political ethicist who employed nonviolent resistance to lead the successful campaign for India's independence from British rule and in turn inspired movements for civil rights and freedom across the world. The honorific Mahātmā (Sanskrit: \"great-souled\", \"venerable\"), first applied to him in 1914 in South Africa, is now used throughout the world.        Born and raised in a Hindu family in coastal Gujarat, Gandhi trained in law at the Inner Temple, London, and was called to the bar at age 22 in June 1891. After two uncertain years in India, where he was unable to start a successful law practice, he moved to South Africa in 1893 to represent an Indian merchant in a lawsuit. He went on to live in South Africa for 21 years. It was in South Africa that Gandhi raised a family and first employed nonviolent resistance in a campaign for civil rights. In 1915, aged 45, he returned to India. He set about organising peasants, farmers, and urban labourers to protest against excessive land-tax and discrimination. Assuming leadership of the Indian National Congress in 1921, Gandhi led nationwide campaigns for easing poverty, expanding women's rights, building religious and ethnic amity, ending untouchability, and above all for achieving swaraj or self-rule.",
+      "tags": [
+        "india",
+        "freedom fighter",
+        "social reformer"
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "6137a9f246364a98d9e4ac26"
+      },
+      "name": "Vivek Dutta Mishra",
+      "id": "vivek-dutta-mishra",
+      "photo": "https://m.media-amazon.com/images/S/amzn-author-media-prod/2fuqj5h433n56ucdr3s5j1k2j9._SY600_._SL200_._PQ50_._FMwebp_.jpg",
+      "biography": "Vivek, by profession, is a Software Technology Enabler—a self-professed title. In this role, he enables the software companies to develop better software designs, build robust architecture, and most importantly, make effective software professionals. With over two decades of experience as a speaker, influencer and educator, his impressive clientele includes the likes of TCS, Mercedes, GE, Mindtree, CISCO, HP, JPMorgan, BNP Paribas, Honeywell, L&T, Walmart, Siemens, Capgemini … But long before associating with software technology, he has been passionate about Indian history and epics and did an extensive study on the subject. Armed with a firm conviction about the superiority of ancient pre-historic literature, over history, he has scripted and directed stage shows such as Ramlila to show various perspectives of the great epic. This series and its inspiration come both from the frustration of the systematic condemnation of our superior Indian culture and a sense of duty to stand it.",
+      "tags": [
+        "fiction",
+        "english",
+        "hindi",
+        "indian epic",
+        "mythology"
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "6137a9f246364a98d9e4ac27"
+      },
+      "name": "Ramdhari Singh Dinkar",
+      "id": "ramdhari-singh-dinkar",
+      "photo": "https://m.media-amazon.com/images/I/41KKQTwnWPL._SX300_SY300_QL70_FMwebp_.jpg",
+      "biography": "Ramdhari Singh \"Dinkar\" (23 September 1908 – 24 April 1974), known by his nom de plume Dinkar, was an Indian Hindi poet essayist, patriot and academic, who is considered one of the most important modern Hindi poets. He remerged as a poet of rebellion as a consequence of his nationalist poetry written in the days before Indian independence. His poetry exuded veer rasa, and he has been hailed as a Rashtrakavi ('national poet') on account of his inspiring patriotic compositions. He was a regular poet of Hindi Kavi sammelan and is hailed to be as popular and connected to poetry lovers for Hindi speakers as Pushkin for Russians. Dinkar initially supported the revolutionary movement during the Indian independence struggle, but later became a Gandhian. However, he used to call himself a \"Bad Gandhian\" because he supported the feelings of indignation and revenge among the youth. In Kurukshetra, he accepted that war is destructive but argued that it is necessary for the protection of freedom. He was close to prominent nationalists of the time such as Rajendra Prasad, Anugrah Narayan Sinha, Sri Krishna Sinha, Rambriksh Benipuri and Braj Kishore Prasad.",
+      "tags": [
+        "poet",
+        "hindi"
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "6137a9f246364a98d9e4ac28"
+      },
+      "name": "Jeffrey Archer",
+      "id": "jeffrey-archer",
+      "photo": "https://m.media-amazon.com/images/S/amzn-author-media-prod/8tf5spo4ri40bkl7hrvrd7t4q9._SX300_CR0%2C0%2C300%2C300_.jpg",
+      "biography": "Jeffrey Howard Archer, Baron Archer of Weston-super-Mare (born 15 April 1940) is an English novelist, former politician, convicted perjurer, and peer of the realm. Before becoming an author, Archer was a Member of Parliament (1969–1974), but did not seek re-election after a financial scandal that left him almost bankrupt. He revived his fortunes as a best-selling novelist; his books have sold more than 320 million copies worldwide.\nArcher became deputy chairman of the Conservative Party (1985–86), before resigning after a newspaper accused him of paying money to a prostitute. In 1987, he won a court case and was awarded large damages because of this claim. He was made a life peer in 1992 and subsequently became Conservative candidate to be the first elected Mayor of London. He had to resign his candidacy in 1999 after it emerged that he had lied in his 1987 libel case. He was imprisoned (2001–2003) for perjury and perverting the course of justice, ending his elected political career.",
+      "tags": [
+        "english",
+        "best-seller"
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "6137a9f246364a98d9e4ac29"
+      },
+      "name": "John Grisham",
+      "id": "john-grisham",
+      "photo": "https://m.media-amazon.com/images/S/amzn-author-media-prod/d661gj9v9di7dgupcm7st49gpt._SY600_._SL200_._PQ50_._FMwebp_.jpg",
+      "biography": "John Ray Grisham Jr. ( born February 8, 1955) is an American novelist and attorney, best known for his popular legal thrillers. His books have been translated into 42 languages and published worldwide.Grisham graduated from Mississippi State University and received a J.D. degree from the University of Mississippi School of Law in 1981. He practiced criminal law for about a decade and served in the Mississippi House of Representatives from January 1984 to September 1990. His first novel, A Time to Kill, was published in June 1989, four years after he began writing it. According to the Academy of Achievement his books have sold 300 million copies and he has written 28 consecutive number one bestsellers. A Galaxy British Book Awards winner, Grisham is one of only three authors to sell two million copies on a first printing, the other two being Tom Clancy and J. K. Rowling. Grisham's first bestseller, The Firm, sold more than seven million copies. The book was adapted into a 1993 feature film of the same name, starring Tom Cruise, and a 2012 TV series which continues the story ten years after the events of the film and novel. Eight of his other novels have also been adapted into films: The Chamber, The Client, A Painted House, The Pelican Brief, The Rainmaker, The Runaway Jury, Skipping Christmas, and A Time to Kill. Grisham's latest book (his 42nd published novel), A Time for Mercy, is his third story involving the characters established in A Time to Kill and further follows the story of Jake Brigance, a Mississippi small town lawyer representing a minor accused of murder.",
+      "tags": [
+        "english",
+        "best-seller",
+        "legal"
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the purpose of this book site?",
+      "answer": "This book site is designed to provide a comprehensive resource for readers interested in exploring various books and their details. It offers an easy-to-navigate platform where users can discover new titles, read descriptions, and access information about authors and genres.",
+      "id": "56d9"
+    },
+    {
+      "question": "How can I search for books on this site?",
+      "answer": "You can search for books on this site by using the search bar located at the top of the homepage. Simply enter the title, author, or genre of the book you are looking for, and the site will display relevant results based on your query.",
+      "id": "3b08"
+    },
+    {
+      "question": "Can I create an account on this book site?",
+      "answer": "Yes, you can create an account on this book site. By signing up, you will be able to save your favorite books, create reading lists, and receive personalized recommendations based on your reading preferences.",
+      "id": "e8e7"
+    }
+  ],
+  "users": [
+    {
+      "name": "Vivek Dutta Mishra",
+      "email": "vivek@conceptarchitect.in",
+      "password": "p@ss1",
+      "roles": [
+        "admin",
+        "author"
+      ],
+      "id": "4880",
+      "favoriteBooks": [
+        "the-accursed-god"
+      ],
+      "favorites": [
+        "the-accursed-god"
+      ]
+    },
+    {
+      "name": "Sanjay Mall",
+      "email": "sanjay@gmail.com",
+      "password": "p@ss1",
+      "roles": [
+        "editor"
+      ],
+      "id": "cae1"
+    },
+    {
+      "id": "9951",
+      "name": "Nikhil kumar",
+      "email": "nikhil@gmail.com",
+      "password": "12345",
+      "role": [
+        "user"
+      ]
+    },
+    {
+      "id": "2b73",
+      "name": "Nikhil",
+      "email": "n@gmail.com",
+      "password": "123",
+      "role": [
+        "user"
+      ]
+    },
+    {
+      "id": "2f8c",
+      "name": "nikhil",
+      "email": "nikhilkumar@gmail.com",
+      "password": "12345678",
+      "role": [
+        "user"
+      ],
+      "favorites": [
+        "the-accursed-god",
+        "harry-potter-and-the-philosophers-stone"
+      ]
+    },
+    {
+      "id": "3865",
+      "name": "niihil",
+      "email": "nikhil@email.com",
+      "password": "12345678",
+      "role": [
+        "user"
+      ]
+    }
+  ]
+}

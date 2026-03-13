@@ -1,0 +1,561 @@
+body {
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 72px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 7px -4px black;
+}
+
+.header-brand h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-container .nav-item {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #000000;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-container .nav-item:hover {
+  background-color: #ddeef7;
+  color: #4f46e5;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+}
+
+.user-badge {
+  background-color: #e0e7ff;
+  color: #4338ca;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 0 1px rgba(67, 56, 202, 0.15);
+}
+
+.HomeScreen {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.HomePage {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.home-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.home-link {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 10px;
+  border: 1px solid rgb(209, 135, 215);
+  background: rgba(79, 70, 229, 0.08);
+  color: #000000;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.home-link:hover {
+  background: rgba(79, 70, 229, 0.18);
+}
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.book-manager h2 {
+  font-size: 2.2em;
+  color: black;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.wrapper .left {
+  border-right: 1px solid #e2e8f0;
+  padding-right: 20px;
+}
+
+.wrapper .right {
+  flex: 1;
+}
+
+.book-list {
+  border-right: 1px solid #e2e8f0;
+  flex: 2;
+  margin-right: 10px;
+}
+
+.book-list li {
+  cursor: pointer;
+  list-style: none;
+  border-bottom: 1px solid #bdbdbd;
+  padding: 12px 0;
+  color: #475569;
+  transition: color 0.2s ease;
+}
+
+.book-list li:hover {
+  color: #4f46e5;
+}
+
+.book-details {
+  flex: 8;
+}
+
+.book-nav-item {
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+}
+
+.booksContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* --- Modern Book Cards --- */
+
+.Card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  background-color: #ffffff;
+  color: #000000;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.Card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -5px black;
+}
+
+.Card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+  background-color: #f1f5f9;
+}
+
+.selected-book {
+  background-color: #d1fae5;
+  color: #065f46;
+  font-weight: 600;
+  border-color: #10b981;
+}
+
+.btn-primary {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #4338ca;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.form-control {
+  width: 100%;
+}
+
+.margin5 {
+  margin: 5px;
+}
+
+.screen {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+}
+
+.NotFoundScreen {
+  color: #991b1b;
+  text-align: center;
+  padding: 40px;
+}
+
+.NotFoundScreen img {
+  max-width: 350px;
+  margin-top: 20px;
+  border-radius: 12px;
+}
+
+.ErrorView {
+  margin: 20px;
+  padding: 15px;
+  background-color: #fef2f2;
+  color: #991b1b;
+  border-left: 4px solid #ef4444;
+  border-radius: 4px;
+}
+
+.BookList {
+  background-color: #ffffff;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.BookList h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-group-item {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1em;
+  font-family: inherit;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.BookListScreen {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.BookListScreen > h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.BookListScreen .btn-sm {
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.BookDetailsScreen {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.BookDetailsScreen > h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+.BookAddScreen {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 40px 30px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.BookAddScreen h2 {
+  text-align: center;
+  color: black;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.BookAddScreen .row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.BookAddScreen .row.mt-3 {
+  align-items: center;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  width: 200px;
+  padding: 12px;
+}
+.addBook {
+  margin: 20px;
+  width: 800px;
+}
+
+.submit-btn {
+  width: 200px;
+}
+
+.BookDetails .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.BookDetails .col {
+  display: flex;
+  flex-direction: column;
+}
+
+.BookDetails .md-col-3 {
+  flex: 1;
+  min-width: 220px;
+}
+
+.BookDetails .md-col-9 {
+  flex: 3;
+  min-width: 300px;
+}
+
+.BookDetails h2 {
+  color: #0f172a;
+  margin-top: 0;
+}
+
+.BookDetails p {
+  line-height: 1.6;
+  color: #475569;
+}
+
+.reviews-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e2e8f0;
+  width: 100%;
+}
+
+.reviews-content {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-item {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  padding: 20px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.review-item h4 {
+  margin: 0 0 8px 0;
+  color: #1e293b;
+  font-size: 1.1em;
+}
+
+.review-item p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 30px;
+  padding: 24px;
+  background-color: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.review-form label {
+  font-weight: 600;
+  color: #000000;
+}
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.review-form .review-btn {
+  align-self: flex-start;
+  width: 200px;
+}
+
+.UserLoginScreen {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 40px 30px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 12px;
+}
+
+.UserLoginScreen h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.UserLoginScreen form {
+  display: flex;
+  flex-direction: column;
+}
+
+.UserLoginScreen input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.addreview {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.Loading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-page {
+  padding: 40px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.admin-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.loading {
+  font-size: 18px;
+}
+
+.no-books {
+  font-size: 18px;
+  color: gray;
+}
+
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.book-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.book-title {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.book-author {
+  color: #666;
+}
+
+.approve-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.approve-btn:hover {
+  background-color: darkgreen;
+}

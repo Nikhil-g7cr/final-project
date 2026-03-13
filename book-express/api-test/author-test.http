@@ -1,0 +1,68 @@
+#get all authors
+
+@base_url=http://localhost:4000/api/authors
+@accept_json=Accept: application/json
+
+GET {{base_url}}
+{{accept_json}}
+
+###
+GET {{base_url}}/arundhati-roy
+{{accept_json}}
+
+###
+
+GET {{base_url}}/invalid-id
+{{accept_json}}
+
+###
+
+# Add new Author
+# @name newAuthor
+POST {{base_url}}
+{{accept_json}}
+Content-Type: application/json
+
+{
+    "_id":"James-Cl",
+    "name":"James Cl",
+    "bio": "Doctor by profession, poet by heart",
+    "tags": [
+        "poet",
+        "hindi",
+        "doctor"
+    ],
+    "image":"jamesClear.jpg"
+}
+
+###
+
+@location=http://{{newAuthor.response.headers.location}}
+@newAuthorId={{newAuthor.response.body._id}}
+
+GET {{location}}
+{{accept_json}}
+
+###
+# Update newly created author
+PUT {{base_url}}/{{newAuthorId}}
+{{accept_json}}
+
+Content-Type: application/json
+
+{
+    "tags":[
+        "poet",
+        "hindi",
+        "english",
+        "doctor"
+    ]
+}
+###
+
+DELETE {{base_url}}/{{newAuthorId}}
+
+###
+GET {{base_url}}/{{newAuthorId}}
+
+

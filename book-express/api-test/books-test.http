@@ -1,0 +1,48 @@
+# Books Test
+
+@base_url=http://localhost:4000/api/books
+@accept_json=Accept: application/json
+
+GET {{base_url}}
+{{accept_json}}
+
+###
+# @name newBook
+POST {{base_url}}
+{{accept_json}}
+Content-Type: application/json
+
+{
+"title":"Atomic habbits",
+"author":"James clear",
+"description":"This book is about changing our habbits at atomic habbits",
+"price":200,
+"rating":4
+}
+
+###
+@bookId={{newBook.response.body._id}}
+
+GET {{base_url}}/{{bookId}}
+{{accept_json}}
+
+###
+PUT {{base_url}}/{{bookId}}
+{{accept_json}}
+Content-Type: application/json
+
+{
+"price":250
+}
+
+###
+PATCH {{base_url}}/{{bookId}}
+{{accept_json}}
+Content-Type: application/json
+
+{
+"rating":5
+}
+
+###
+DELETE {{base_url}}/{{bookId}}

@@ -1,0 +1,38 @@
+# Reviews Test
+
+@base_url=http://localhost:4000/api
+@accept_json=Accept: application/json
+@bookId=harry-potter-and-the-philosophers-stone
+
+GET {{base_url}}/books/{{bookId}}/reviews
+{{accept_json}}
+
+###
+# @name newReview
+POST {{base_url}}/books/{{bookId}}/reviews
+{{accept_json}}
+Content-Type: application/json
+
+{
+"user":"testUser",
+"rating":5,
+"comment":"Amazing book"
+}
+
+###
+@reviewId={{newReview.response.body._id}}
+
+GET {{base_url}}/reviews/{{reviewId}}
+{{accept_json}}
+
+###
+PATCH {{base_url}}/reviews/{{reviewId}}
+{{accept_json}}
+Content-Type: application/json
+
+{
+"rating":4
+}
+
+###
+DELETE {{base_url}}/reviews/{{reviewId}}

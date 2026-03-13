@@ -1,0 +1,118 @@
+@base_url=http://localhost:4000/api/users
+@content_type=Content-Type: application/json
+
+@accept=Accept: application/json
+
+
+# Get All Users from guest
+GET {{base_url}}
+{{accept}}
+
+###
+
+# Regiter Admin User
+POST {{base_url}}
+{{content_type}}
+{{accept}}
+
+{
+    "email":"nikhil@email.com",
+    "password":"pass",
+    "name":"Nikhil",
+    "roles":["admin","author"],
+    "photo":"https://m.media-amazon.com/images/S/amzn-author-media-prod/2fuqj5h433n56ucdr3s5j1k2j9.jpg"
+}
+
+###
+
+# Register normal user
+POST {{base_url}}
+{{content_type}}
+{{accept}}
+
+{
+    "email":"sanjay@gmail.com",
+    "password":"pass",
+    "name":"Sanjay Mall",
+    "photo":"https://randomuser.me/api/portraits/men/39.jpg"   
+}
+
+
+###
+
+# Register duplicate user
+POST {{base_url}}
+{{content_type}}
+{{accept}}
+
+{
+    "email":"sanjay@gmail.com",
+    "password":"pass",
+    "name":"Sanjay Mall"    
+}
+
+
+###
+
+# login normal user
+# @name normalUser
+POST {{base_url}}/login
+{{content_type}}
+{{accept}}
+
+{
+    "email": "nikhil@email.com", 
+    "password":"pass"    
+}
+###
+
+@normalUserToken= {{normalUser.response.body.token}}
+
+###
+# find the current user
+GET {{base_url}}/current-user
+Authorization: BEARER {{normalUserToken}}
+
+###
+
+# get all users from normal account
+GET {{base_url}}
+Authorization: BEARER {{normalUserToken}}
+
+
+###
+
+# login invalid normal user
+POST {{base_url}}/login
+{{content_type}}
+{{accept}}
+
+{
+    "email": "sanjay@gmail.com", 
+    "password":"pass2"    
+}
+###
+
+# login admin user
+# @name adminUser
+POST {{base_url}}/login
+{{content_type}}
+{{accept}}
+
+{
+    "email": "nikhil@email.com", 
+    "password":"pass"    
+}
+
+###
+
+@adminUserToken= {{adminUser.response.body.token}}
+
+
+###
+
+# Get all users from admin account
+GET {{base_url}}
+Authorization: BEARER {{adminUserToken}}
+
+
