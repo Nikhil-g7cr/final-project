@@ -39,4 +39,31 @@ export class UserService {
         }
 
     }
+
+    async getFavorites(email) {
+        let user = await this.userRepository.getUserByEmail(email);
+        if (!user) throw new AuthenticationError("User not found");
+        return user.favoriteBooks || [];
+    }
+
+    async toggleFavorite(email, bookId) {
+        let user = await this.userRepository.getUserByEmail(email);
+        if (!user) throw new AuthenticationError("User not found");
+
+        // Ensure array exists
+        if (!user.favoriteBooks) user.favoriteBooks = [];
+
+        // Toggle logic: If it's there, remove it. If it's not, add it.
+        const index = user.favoriteBooks.indexOf(bookId);
+        if (index > -1) {
+            user.favoriteBooks.splice(index, 1);
+        } else {
+            user.favoriteBooks.push(bookId);
+        }
+
+        // FIX: Use the repository to update the database instead of user.save()
+        await this.userRepository.updateFavorites(email, user.favoriteBooks);
+        
+        return user.favoriteBooks;
+    }
 }

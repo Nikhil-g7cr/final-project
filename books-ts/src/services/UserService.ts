@@ -1,27 +1,25 @@
 import api from './api'
-import { delay } from './delay';
+// import { delay } from './delay'; // Removed if unused
 
 let uri="users"
 
-export interface User{
-    id: string,         
-    name:string,
-    roles?:[string],
-    email:string,
-    favorites?: string[] 
+export interface User {
+    _id?: string, // FIX: Changed to _id to match MongoDB
+    name: string,
+    roles?: [string],
+    email: string,
+    favoriteBooks?: string[] // FIX: Changed to match your backend Mongoose model
 }
 
 class UserService { 
 
     async getcurrUser(){
         let userJson = localStorage.getItem('user');
-        if(!userJson) return null; // No user in local storage
+        if(!userJson) return null; 
         const user = JSON.parse(userJson);
         try {
-            // const response = await api.get(`${uri}/current-user`);
             return user;
         } catch (error) {
-            // If token invalid or not present, return null
             return null;
         }
     }
@@ -32,13 +30,8 @@ class UserService {
     }
 
     async login( email: string, password: string ) {
-        // await delay(2000);
-
         try{
-
             let response = await api.post('/users/login', { email, password })
-            //{user:{}, token}
-            //let's save for future
             let {user,token} = response.data;
             localStorage.setItem("user",JSON.stringify(user))
             localStorage.setItem("token", token)
@@ -47,14 +40,6 @@ class UserService {
             console.log('login error',error)
             throw error;
         }
-        // const response = await api.post(`${uri}/login`, { email, password },);
-        // const { user, token } = response.data;
-        
-        // // Store token
-        // localStorage.setItem('token', token);
-        // localStorage.setItem('user', JSON.stringify(user));
-        
-        // return user;
     }
 
     async logout(){
@@ -64,29 +49,30 @@ class UserService {
     }
 
     async register(user: any) {
-        // await delay(2000);
-        
         let response = await api.post(uri, user);
-        const newUser = response.data;
-        
-        return newUser;
+        return response.data;
     }
 
+    // FIX: Completely refactored to use the new smart backend endpoint
     async favoriteBooks(user: User, bookId: string) {
-        await delay(500);
-        let favorites = user.favorites || [];
         
-        const isAlreadySaved = favorites.find(id => id == bookId);
+        // 1. Let the backend do the heavy lifting (it toggles it automatically!)
+        let response = await api.post(`${uri}/favorites/${bookId}`);
+        
+        // 2. The backend returns the fresh, updated array of favorite book IDs
+        let updatedFavorites = response.data; 
 
-        if (isAlreadySaved) {
-            favorites = favorites.filter(id => id != bookId);
-        } else {
-            favorites = [...favorites, bookId];
+        // 3. Keep localStorage perfectly in sync so a page refresh doesn't break the UI
+        let userJson = localStorage.getItem('user');
+        if (userJson) {
+            let localUser = JSON.parse(userJson);
+            localUser.favoriteBooks = updatedFavorites; 
+            localStorage.setItem('user', JSON.stringify(localUser));
         }
 
-        let response = await api.patch(`${uri}/${user.id}`, { favorites });
-        return response.data; 
+        return updatedFavorites; 
     }
 }
 
+// Don't forget to export the instance!
 export default new UserService();

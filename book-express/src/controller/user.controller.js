@@ -23,14 +23,15 @@ export const login=asyncHandler(async ({body,host})=>{
     const data={
         subject: user.email,
         name:user.name,
-        roles:user.roles,       
+        roles:user.roles,
+        favoriteBooks: user.favoriteBooks || []       
     }
 
     let token = await createToken(data)
     console.log('token',token);
 
     return {
-        user:{...data, photo:user.photo},
+        user:{...data, photo:user.photo, email:user.email, _id:user._id},
         token
     }
     
@@ -41,6 +42,16 @@ export const currentUser = asyncHandler(async({user})=>{
     return user;
 })
 
+export const getFavorites = asyncHandler(async ({ user }) => {
+    const favorites = await userService.getFavorites(user.subject || user.email);
+    return favorites;
+})
+
+export const toggleFavorite = asyncHandler(async ({ bookId, user }) => {
+    // FIX: bookId is already spread into context from request.params by asyncHandler
+    const updatedFavorites = await userService.toggleFavorite(user.subject || user.email, bookId);
+    return updatedFavorites;
+})
 
 export const register = asyncHandler(async ({body})=>await userService.register(body))
 

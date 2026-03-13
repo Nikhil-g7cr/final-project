@@ -23,8 +23,9 @@ const userReducer = {
     store.model = action.payload;
   },
   favoriteBooks(store: any, action: any) {
-    store.model = action.payload;
-  },
+    if (store.model) {
+        store.model.favoriteBooks = action.payload; 
+    }},
 };
 
 interface UserProviderProps {
@@ -41,7 +42,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   // 2. Initialize the store with the cached user instead of 'null'
   const initStore = createStore(initialUser);
 
-  
+
   const [store, dispatch] = useReducer(reducer, initStore);
 
   const actionCreators = {

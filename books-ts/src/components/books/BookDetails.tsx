@@ -21,7 +21,8 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
   const { getBookById } = useBookProvider();
   const { user, favoriteBooks } = useUserProvider();
 
-  const isFavorite = book ? (user?.favorites?.some((favId: any) => String(favId) === String(book._id)) ?? false) : false;
+  // FIX: Check favoriteBooks instead of favorites
+  const isFavorite = book ? (user?.favoriteBooks?.some((favId: any) => String(favId) === String(book._id)) ?? false) : false;
 
   if (status === "loading") return <h3>loading...</h3>;
   if (status === "idle") return <h3>Please select a book</h3>;
@@ -62,7 +63,8 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
 
           <AuthenticatedLink
             linkVisibility="authenticated"
-            allowedRoles={["admin", "librarian"]}
+            // FIX: Any authenticated user can favorite books, not just admin/librarian
+            className="btn-container"
           >
             <button className={`btn form-control ${isFavorite ? 'btn-warning' : 'btn-success'}`}
             onClick={handleToggleFavorite}>

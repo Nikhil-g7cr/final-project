@@ -43,4 +43,14 @@ export class MongooseUserRepository{
         return await this.updateUser(email, user)
     }
 
+    async updateFavorites(email, favoriteBooks){
+        // findOneAndUpdate safely updates the array without needing .save()
+        let user = await User.findOneAndUpdate(
+            { email }, 
+            { favoriteBooks }, 
+            { new: true }
+        );
+        return user.toObject();
+    }
+
 }

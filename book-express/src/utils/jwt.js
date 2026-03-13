@@ -24,7 +24,8 @@ export const parseJwtToken=async(request,response,next)=>{
     if(!tokenString){
         request.tokenError=new AuthenticationError("Token Not Found")
     } else{
-        tokenString=tokenString.replace('BEARER ','')
+        // FIX: Changed to match "Bearer " (with capital B and space)
+        tokenString=tokenString.replace('Bearer ','')
         try{
             let user = await jwt.verify(tokenString,secret)
             request.user=user

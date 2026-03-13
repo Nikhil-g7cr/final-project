@@ -14,7 +14,7 @@ const FavoriteBooksScreen = () => {
             <div className='BookListScreen screen'>
                 <h2>My Favorite Books</h2>
                 <p>Please log in to see your favorite books.</p>
-                <Link className='btn btn-primary' to='/user/login'>Go to Login</Link>
+                <Link className='btn btn-primary' to='/users/login'>Go to Login</Link>
             </div>
         );
     }
@@ -25,9 +25,11 @@ const FavoriteBooksScreen = () => {
                 
                 let favoriteBooks: Book[] = [];
 
-                if (books && user && user.favorites) {
-                    const favoriteIds = user.favorites.map(id => String(id));
-                    favoriteBooks = books.filter(book => favoriteIds.includes(String(book.id)));
+                // FIX: Check for user.favoriteBooks to match your DB and backend
+                if (books && user && user.favoriteBooks) {
+                    const favoriteIds = user.favoriteBooks.map((id: string) => String(id));
+                    // FIX: Check book._id instead of book.id
+                    favoriteBooks = books.filter(book => favoriteIds.includes(String(book._id)));
                 }
 
                 return (
@@ -35,11 +37,13 @@ const FavoriteBooksScreen = () => {
                         <h2>My Favorite Books</h2>
 
                         {favoriteBooks.length === 0 ? (
-                            <p>Please add the book</p>
+                            <p>You have not added any favorite books yet!</p>
                         ) : (
-                            <div className="booksContainer">
+                            <div className="row">
                                 {favoriteBooks.map((book: Book) => (
-                                    <BookCard key={book.id} book={book} />
+                                    <div className="col col-3 mb-4" key={book._id}>
+                                        <BookCard book={book} />
+                                    </div>
                                 ))}
                             </div>
                         )}

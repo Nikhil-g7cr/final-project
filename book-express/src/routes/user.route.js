@@ -1,4 +1,4 @@
-import {getAllUsers, register, login, currentUser } from '../controller/user.controller.js'
+import {getAllUsers, register, login, currentUser, getFavorites, toggleFavorite } from '../controller/user.controller.js'
 
 import express from 'express'
 import { authenticate, authorize } from '../utils/jwt.js'
@@ -17,5 +17,11 @@ router
 router
     .route("/users/current-user")
     .get(authenticate, currentUser)
+
+router.route("/users/favorites")
+    .get(authenticate, getFavorites)
+
+router.route("/users/favorites/:bookId")
+    .post(authenticate, toggleFavorite)
 
 export default router;
