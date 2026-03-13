@@ -9,7 +9,7 @@ export class AuthorService{
         let authors= await this.repository
                         .getAll()
                         
-        return authors.map(author=>({id:author._id, 
+        return authors.map(author=>({_id:author._id, 
                             name:author.name, 
                             photo:author.photo
                         }))
