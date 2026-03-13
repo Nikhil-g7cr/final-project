@@ -8,10 +8,10 @@ export interface AuthenticatedLinkProps{
     children:React.ReactNode,
     linkVisibility?:LinkVisibility,
     className?:string,
-    onClick?:()=>void
+    onClick?:(e: React.MouseEvent) => void
 }
 
-const AuthenticatedLink= ({to, children, linkVisibility = "always", className}:AuthenticatedLinkProps)=>{
+const AuthenticatedLink= ({to, children, linkVisibility = "always", className, onClick}:AuthenticatedLinkProps)=>{
 
     const {user} = useUserProvider();
     if(linkVisibility === "authenticated" && !user){
@@ -22,11 +22,18 @@ const AuthenticatedLink= ({to, children, linkVisibility = "always", className}:A
         return null;
     }
 
+    if (!to) {
+        return (
+            <span className={className} onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+                {children}
+            </span>
+        );
+    }
+
     return (
-    <Link to={to} className={className}>
+    <Link to={to} className={className} onClick={onClick}>
         {children}
     </Link>)
 }
-
 
 export default AuthenticatedLink;

@@ -5,18 +5,14 @@ import { useState, useEffect } from "react"
 import bookService from '../../services/BookService'
 import type { Status } from "../../types/Status"
 
-
-
 const BookManagementScreen=()=>{
 
     const [books,selectBooks]=useState<Book[]>([])
-
     const [selectedBook,selectBook] = useState<Book|null>(null)
 
     const [bookListError,setBookListError] = useState<Error|null>(null)
     const [bookError,setBookError] = useState<Error|null>(null)
     
-
     const [listStatus,setListStatus]=useState<Status>("loading")
     const [bookStatus,setBookStatus]=useState<Status>("idle")
 
@@ -33,11 +29,8 @@ const BookManagementScreen=()=>{
                 setListStatus("error")
                 setBookListError(error)
             })
-
     },[])
 
-
-    
     const handleBookSelect=async (id:string)=>{
         try{
             setBookStatus("loading")
@@ -48,14 +41,17 @@ const BookManagementScreen=()=>{
             setBookStatus("error")
             setBookError(error as Error)
         }
-
     }
 
-    const handleDelete=async (id:string)=>{
+    // FIX: Removed 'id' from parameter since BookDetails likely doesn't pass it
+    const handleDelete=async ()=>{
+        // FIX: Verify a book is selected before trying to delete
+        if(!selectedBook) return;
+
         try{
-            
-            await bookService.deleteBookById(id)
-            selectBooks(books.filter(b=>b._id!==id))
+            // Use selectedBook._id instead of the parameter
+            await bookService.deleteBookById(selectedBook._id)
+            selectBooks(books.filter(b=>b._id!==selectedBook._id))
             selectBook(null)
         }catch(error){
             console.log((error as Error).message)
