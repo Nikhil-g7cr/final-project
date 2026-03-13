@@ -52,6 +52,7 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
 
           <AuthenticatedLink
             linkVisibility="authenticated"
+            allowedRoles={["admin", "librarian"]} // FIX: Add this line!
             className="btn btn-danger form-control"
             onClick={() => onDelete(book._id)}
           >
@@ -61,7 +62,7 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
 
           <AuthenticatedLink
             linkVisibility="authenticated"
-            
+            allowedRoles={["admin", "librarian"]}
           >
             <button className={`btn form-control ${isFavorite ? 'btn-warning' : 'btn-success'}`}
             onClick={handleToggleFavorite}>

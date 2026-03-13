@@ -5,6 +5,8 @@ import {
   createStore,
   createAsyncAction,
 } from "../services/context-utils";
+
+
 const userContext = createContext<any>(null);
 
 const userReducer = {
@@ -38,6 +40,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   // 2. Initialize the store with the cached user instead of 'null'
   const initStore = createStore(initialUser);
+
+  
   const [store, dispatch] = useReducer(reducer, initStore);
 
   const actionCreators = {
@@ -59,24 +63,13 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   // 3. Verify the token with the backend in the background
-  useEffect(() => {
-    userService
-      .getcurrUser()
-      .then((user) => {
-        if (user) {
-          actionCreators.setUser(user);
-          // Keep local storage up to date (e.g. if roles or favorites changed)
-          localStorage.setItem("user", JSON.stringify(user));
-        } else {
-          // If token expired/invalid, force logout to clean state
-          actionCreators.logout();
-        }
-      })
-      .catch(() => {
-         actionCreators.logout();
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(()=>{
+        //value.getCurrentUser()
+         userService
+            .getcurrUser()
+            .then(user=> dispatch({type:"setUser", payload:user}))
+       
+    },[])
 
   return <userContext.Provider value={info}>{children}</userContext.Provider>;
 };

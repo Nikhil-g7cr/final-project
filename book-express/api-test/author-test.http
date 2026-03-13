@@ -24,9 +24,9 @@ POST {{base_url}}
 Content-Type: application/json
 
 {
-    "_id":"James-Cl",
-    "name":"James Cl",
-    "bio": "Doctor by profession, poet by heart",
+    "_id":"James",
+    "name":"James",
+    "biography": "Doctor by profession, poet by heart",
     "tags": [
         "poet",
         "hindi",

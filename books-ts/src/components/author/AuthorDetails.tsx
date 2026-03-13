@@ -16,8 +16,6 @@ interface AuthorDetailsProps {
 
 const AuthorDetails = ({ author, onDelete, status, error }: AuthorDetailsProps) => {
 
-  
-
   if (status === "loading") return <h3>loading...</h3>;
   if (status === "idle") return <h3>Please select an author</h3>;
   if (status === "error") return <h3>{error?.message}</h3>;
@@ -29,11 +27,12 @@ const AuthorDetails = ({ author, onDelete, status, error }: AuthorDetailsProps) 
         <div className="col md-col-3">
           
           <AuthenticatedLink 
-            linkVisibility="authenticated"  
-          ><button className="btn btn-danger form-control"  onClick={() => onDelete(author._id)}>
-
+            linkVisibility="authenticated"
+            allowedRoles={["admin", "librarian"]} // FIX: Only these roles will see the button!
+            className="btn btn-danger form-control"  
+            onClick={() => onDelete(author._id)}
+          >
             Delete
-          </button>
           </AuthenticatedLink>
           <Spacer height="10px" />
 
@@ -47,7 +46,8 @@ const AuthorDetails = ({ author, onDelete, status, error }: AuthorDetailsProps) 
         <div className="col md-col-9">
           <h2>{author.name}</h2>
           <h4>Biography</h4>
-          <p>{author.bio}</p>
+          {/* FIX: Render author.biography instead of author.bio */}
+          <p>{author.biography}</p>
         </div>
       </div>
     </div>

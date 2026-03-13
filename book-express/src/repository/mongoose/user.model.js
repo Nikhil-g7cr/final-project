@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     email:{
         type:String,
         required:true,
-        unqiue:true,
+        unique:true,
         validate:{
             validator:async function(value){
                 const exists = await User.exists({email:value})

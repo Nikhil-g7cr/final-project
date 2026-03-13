@@ -10,12 +10,13 @@ const AuthorDetailsScreen = () => {
     
     const { deleteAuthorById, getAuthorById, selectedAuthor } = useAuthorProvider();
 
-    const handleDelete = async (bookId: string) => {
+    // Rename bookId to authorId for clarity
+    const handleDelete = async (authorId: string) => {
         try {
-            await deleteAuthorById(bookId); 
+            await deleteAuthorById(authorId); 
             navigate('/authors'); 
         } catch (error) {
-            console.error("Failed to delete the book", error);
+            console.error("Failed to delete the author", error);
         }
     };
 

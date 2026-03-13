@@ -1,4 +1,4 @@
-import { useState, type SubmitEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import LabeledInput from "../utils/Input";
 import Spacer from "../utils/Spacer";
@@ -54,7 +54,7 @@ const UserLoginScreen = (props: UserLoginScreenProps) => {
     return isValid;
   };
 
-  const handleLogin = async (e: SubmitEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!validate()) return;
