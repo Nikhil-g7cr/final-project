@@ -31,7 +31,13 @@ interface UserProviderProps {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const reducer = createReducer(userReducer);
-  const initStore = createStore(null);
+  
+  // 1. Check local storage for an existing user session on load
+  const storedUser = localStorage.getItem("user");
+  const initialUser = storedUser ? JSON.parse(storedUser) : null;
+
+  // 2. Initialize the store with the cached user instead of 'null'
+  const initStore = createStore(initialUser);
   const [store, dispatch] = useReducer(reducer, initStore);
 
   const actionCreators = {
@@ -52,15 +58,24 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     ...actionCreators,
   };
 
+  // 3. Verify the token with the backend in the background
   useEffect(() => {
     userService
       .getcurrUser()
       .then((user) => {
         if (user) {
           actionCreators.setUser(user);
+          // Keep local storage up to date (e.g. if roles or favorites changed)
+          localStorage.setItem("user", JSON.stringify(user));
+        } else {
+          // If token expired/invalid, force logout to clean state
+          actionCreators.logout();
         }
       })
-      .catch(() => {});
+      .catch(() => {
+         actionCreators.logout();
+      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <userContext.Provider value={info}>{children}</userContext.Provider>;

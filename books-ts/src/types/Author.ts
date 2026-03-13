@@ -1,6 +1,7 @@
 export interface Author {
     _id: string;
     name: string;
-    bio:string;
+    biography: string;
     photo?: string; 
+    tags?: string[];
 }

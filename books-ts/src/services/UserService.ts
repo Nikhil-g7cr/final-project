@@ -30,12 +30,14 @@ class UserService {
         
         // Store token
         localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
         
         return user;
     }
 
     async logout(){
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
     }
 
     async register(user: any) {

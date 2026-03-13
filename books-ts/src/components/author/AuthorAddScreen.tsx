@@ -13,11 +13,13 @@ const AuthorAddScreen = () => {
   );
   const [error, setError] = useState<Error | null>(null);
 
+  // FIX: Changed 'bio' to 'biography' to match backend
   const [author, setAuthor] = useState<Partial<Author>>({
     _id: "",
     name: "",
     photo: "",
-    bio: "",
+    biography: "", 
+    tags: [],
   });
 
   const handleInputChange = (value: string, id: string) => {
@@ -41,7 +43,6 @@ const AuthorAddScreen = () => {
   };
 
   if (status === "loading") return <Loading message="Adding author..." />;
-
   if (status === "error") return <ErrorView error={error!} />;
 
   return (
@@ -51,7 +52,7 @@ const AuthorAddScreen = () => {
         <div className="row">
           <div className="col col-6">
             <LabeledInput
-              id="id"
+              id="_id" // ensure this matches the state key
               label="Author ID"
               value={author._id || ""}
               onChange={handleInputChange}
@@ -86,16 +87,34 @@ const AuthorAddScreen = () => {
 
         <div className="row">
           <div className="col">
-            <label htmlFor="bio" className="form-label">
+            <label htmlFor="biography" className="form-label">
               Biography
             </label>
             <textarea
-              id="bio"
+              id="biography" // FIX: id matches state
               className="form-control"
-              value={author.bio || ""}
-              onChange={(e) => handleInputChange(e.target.value, "bio")}
-              placeholder="Enter author biography"
+              value={author.biography || ""} // FIX: reads from biography
+              onChange={(e) => handleInputChange(e.target.value, "biography")} // FIX: updates biography
+              placeholder="Enter author biography (min 20 characters)" // Added hint for validation
               rows={4}
+            />
+          </div>
+        </div>
+        
+        <div className="row">
+          <div className="col">
+            <LabeledInput
+              id="tags"
+              label="Tags (Comma separated)"
+              value={author.tags?.join(", ") || ""}
+              onChange={(value) => 
+                // Convert comma-separated string back into an array of trimmed strings
+                setAuthor(prev => ({
+                  ...prev, 
+                  tags: value.split(',').map(tag => tag.trim()).filter(tag => tag !== "")
+                }))
+              }
+              placeholder="e.g. fiction, mystery, bestseller"
             />
           </div>
         </div>
