@@ -4,7 +4,7 @@ interface Oid{
 }
 export interface Reviews{
     title:string,
-    body:string,
+    comment:string,
     rating:number,
     reviewer:string,
     bookId:string,

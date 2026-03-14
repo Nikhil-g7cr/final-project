@@ -36,15 +36,30 @@ class BookService {
         return response.data;
     }
 
+    // async addReview(bookId: string, review: any) {
+    //     await delay(1000);
+    //     let bookResponse = await api.get(`${uri}/${bookId}`);
+    //     let book = bookResponse.data;
+    //     let currentReviews = book.reviews || [];
+    //     let updatedReviews = [...currentReviews, review];
+    //     let response = await api.patch(`${uri}/${bookId}`, {
+    //         reviews: updatedReviews
+    //     });
+    //     return response.data;
+    // }
+
     async addReview(bookId: string, review: any) {
-        await delay(1000);
-        let bookResponse = await api.get(`${uri}/${bookId}`);
-        let book = bookResponse.data;
-        let currentReviews = book.reviews || [];
-        let updatedReviews = [...currentReviews, review];
-        let response = await api.patch(`${uri}/${bookId}`, {
-            reviews: updatedReviews
-        });
+        let payload = {
+            ...review,
+            bookId: bookId 
+        };
+        // Note: reviewer name is added by the backend using the authenticated user's name
+        let response = await api.post('/reviews', payload);
+        return response.data;
+    }
+
+    async getBookReviews(bookId: string) {
+        let response = await api.get(`/reviews?bookId=${bookId}`);
         return response.data;
     }
 

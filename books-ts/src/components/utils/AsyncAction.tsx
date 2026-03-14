@@ -33,7 +33,8 @@ const AsyncAction = ({action,children,onLoading,onError}: AsyncActionProps) => {
   if (status === "loading") return onLoading ? onLoading() : <Loading />;
   if (status === "error")
     return onError ? onError(error) : <ErrorView error={error} />;
-  if (status === "done") return children(data);
+  // FIX: Pass data, status, and error to children
+  if (status === "done") return children(data, status, error);
 
   return "unexpected";
 };

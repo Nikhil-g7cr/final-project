@@ -17,7 +17,7 @@ const AuthorAddScreen = () => {
   const [author, setAuthor] = useState<Partial<Author>>({
     _id: "",
     name: "",
-    photo: "",
+    image: "",
     biography: "", 
     tags: [],
   });
@@ -78,7 +78,7 @@ const AuthorAddScreen = () => {
             <LabeledInput
               id="photo"
               label="Photo URL"
-              value={author.photo || ""}
+              value={author.image}
               onChange={handleInputChange}
               placeholder="Enter photo URL"
             />

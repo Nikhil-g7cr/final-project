@@ -9,7 +9,7 @@ const AuthorCard = ({ author }: AuthorCardProps) => {
     return (
         <Link className='bookCard' to={`/authors/${author._id}`}>
             <img 
-                src={author.photo} 
+                src={author.image} 
                 alt={author.name} 
                 title={author.name} 
             />

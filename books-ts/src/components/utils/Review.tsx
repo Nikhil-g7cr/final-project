@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, type SetStateAction } from "react";
 import type { Book, Reviews } from "../../types/Book";
 import Spacer from "./Spacer";
 import { useUserProvider } from "../../providers/UserProvider";
@@ -14,104 +14,132 @@ interface ReviewProps {
 
 const Review = ({ book, onReviewAdded }: ReviewProps) => {
   const { user } = useUserProvider();
+
+  const [fetchedReviews, setFetchedReviews] = useState<any[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+
   const [reviewStatus, setReviewStatus] = useState<Status>("idle");
   const [reviewError, setReviewError] = useState<Error | null>(null);
-  const [review, setReview] = useState<Reviews>({
-    title: "",
-    body: "",
+
+  const [review, setReview] = useState<Partial<Reviews>>({
+    comment: "",
     rating: 0,
-    reviewer: user?.name || "",
-    bookId: book.id,
   });
 
-  const handleReviewChange = (value:string, id:string) => {
+  useEffect(() => {
+    if (book._id) {
+      setLoadingReviews(true);
+
+      // FIX: Combine legacy reviews from book.reviews with new reviews from API
+      let allReviewsToShow: { userId: any; rating: any; comment: any; }[] = [];
+
+      // 1. Add legacy reviews from book.reviews array
+      if (
+        book.reviews &&
+        Array.isArray(book.reviews) &&
+        book.reviews.length > 0
+      ) {
+        const legacyReviews = book.reviews.map((rev: any) => ({
+          userId: rev.reviewer || "Anonymous",
+          rating: rev.rating,
+          comment:
+            rev.review || rev.body || rev.title || "No comment provided.",
+        }));
+        allReviewsToShow = [...legacyReviews];
+      }
+
+      // 2. Fetch and add new reviews from the Review collection
+      bookService
+        .getBookReviews(book._id)
+        .then((data) => {
+          // Map new reviews to match display format (reviewer field from new reviews)
+          const newReviews = data.map((rev: any) => ({
+            userId: rev.reviewer || "Anonymous",
+            rating: rev.rating,
+            comment: rev.comment || "No comment provided.",
+          }));
+
+          // Combine all reviews - legacy first, then new
+          const combined = [...allReviewsToShow, ...newReviews];
+          setFetchedReviews(combined);
+          setLoadingReviews(false);
+        })
+        .catch((err) => {
+          console.error("Failed to load reviews", err);
+          // Even if API fails, show legacy reviews
+          setFetchedReviews(allReviewsToShow);
+          setLoadingReviews(false);
+        });
+    }
+  }, [book._id]);
+
+  const handleReviewChange = (value: string, id: string) => {
     setReview((prev) => ({
       ...prev,
       [id]: id === "rating" ? Number(value) : value,
-      bookId: book.id,
-      reviewer: user?.name || "",
     }));
   };
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!book.id) return;
+    if (!book._id) return;
 
     try {
       setReviewStatus("loading");
       setReviewError(null);
-      await bookService.addReview(book.id, review as Reviews);
-      setReviewStatus("done");
-      setReview({
-        title: "",
-        body: "",
-        rating: 0,
-        reviewer: user?.name || "",
-        bookId: book.id,
-      });
-      if (onReviewAdded) {
-        onReviewAdded();
+
+      await bookService.addReview(book._id, review as Reviews);
+
+      const updatedReviews = await bookService.getBookReviews(book._id);
+
+      // Combine legacy reviews with new reviews after adding
+      let allReviewsToShow: { userId: any; rating: any; comment: any; }[] = [];
+      if (
+        book.reviews &&
+        Array.isArray(book.reviews) &&
+        book.reviews.length > 0
+      ) {
+        const legacyReviews = book.reviews.map((rev: any) => ({
+          userId: rev.reviewer || "Anonymous",
+          rating: rev.rating,
+          comment:
+            rev.review || rev.body || rev.title || "No comment provided.",
+        }));
+        allReviewsToShow = [...legacyReviews];
       }
+
+      const newReviews = updatedReviews.map((rev: any) => ({
+        userId: rev.reviewer || "Anonymous",
+        rating: rev.rating,
+        comment: rev.comment || "No comment provided.",
+      }));
+
+      const combined = [...allReviewsToShow, ...newReviews];
+      setFetchedReviews(combined);
+
+      setReviewStatus("done");
+      setReview({ comment: "", rating: 0 });
+
+      if (onReviewAdded) onReviewAdded();
     } catch (err) {
       setReviewStatus("error");
       setReviewError(err as Error);
     }
   };
 
+  // FIX: All reviews (legacy + new) are already combined in fetchedReviews by useEffect
+
   return (
     <div className="col">
+      <hr />
       <h2>Reviews</h2>
-      {user && (
-        <div className="addreview">
-          <h3>Add Your Review</h3>
-          <form onSubmit={handleReviewSubmit}>
-            
-            <LabeledInput
-              id="rating"
-              label="Rating"
-              type="number"
-              value={String(review.rating || "")}
-              onChange={handleReviewChange}
-              placeholder="Enter rating (0-5)"
-              inputClassName="no-spinner"
-            />
-            <div className="form-group">
-              <label htmlFor="body" className="form-label">
-                Review
-              </label>
-              <textarea
-                id="body"
-                className="form-control"
-                value={review.body || ""}
-                onChange={(e) => handleReviewChange(e.target.value, "body")}
-                placeholder="Write your review"
-                rows={4}
-              />
-            </div>
-            <Spacer height="10px" />
-            <button
-              type="submit"
-              className="btn btn-primary review-btn"
-              disabled={reviewStatus === "loading"}
-            >
-              {reviewStatus === "loading" ? "Submitting..." : "Submit Review"}
-            </button>
-            {reviewStatus === "loading" && <Loading />}
-            {reviewStatus === "error" && reviewError && (
-              <span className="text-danger">{reviewError.message}</span>
-            )}
-            {reviewStatus === "done" && (
-              <span className="text-success">
-                Review submitted successfully!
-              </span>
-            )}
-          </form>
-        </div>
-      )}
 
-      {book.reviews && book.reviews.length > 0 ? (
+      {/* Show the combined list of all reviews */}
+      {loadingReviews ? (
+        <Loading />
+      ) : fetchedReviews.length > 0 ? (
         <div>
-          {book.reviews.map((review, index) => (
+          {fetchedReviews.map((rev, index) => (
             <div
               key={index}
               className="review-item"
@@ -120,23 +148,63 @@ const Review = ({ book, onReviewAdded }: ReviewProps) => {
                 padding: "10px",
                 border: "1px solid #ddd",
                 borderRadius: "5px",
+                backgroundColor: "#f9f9f9",
               }}
             >
-              <h4>{review.title}</h4>
-              <p>
-                <strong>By:</strong> {review.reviewer}
+              <p style={{ margin: "0 0 5px 0" }}>
+                <strong>User:</strong> {rev.userId}
               </p>
-              <p>
-                <strong>Rating:</strong> {review.rating} / 5
+              <p style={{ margin: "0 0 5px 0", color: "#f39c12" }}>
+                <strong>Rating:</strong> {rev.rating} / 5
               </p>
-              <p>{review.body}</p>
+              <p style={{ margin: "0" }}>{rev.comment}</p>
             </div>
           ))}
         </div>
       ) : (
-        <p>No reviews </p>
+        <p>No reviews yet. Be the first!</p>
       )}
 
+      {/* Form to add a new review */}
+      {user && (
+        <div className="addreview mt-4 p-3 border rounded bg-light">
+          <h3>Add Your Review</h3>
+          <form onSubmit={handleReviewSubmit}>
+            <LabeledInput
+              id="rating"
+              label="Rating (1-5)"
+              type="number"
+              value={String(review.rating || "")}
+              onChange={handleReviewChange}
+              placeholder="Enter rating (1-5)"
+            />
+            <div className="form-group mt-2">
+              <label htmlFor="comment" className="form-label fw-bold">
+                Comment
+              </label>
+              <textarea
+                id="comment"
+                className="form-control"
+                value={review.comment || ""}
+                onChange={(e) => handleReviewChange(e.target.value, "comment")}
+                placeholder="Write your review here..."
+                rows={3}
+              />
+            </div>
+            <Spacer height="15px" />
+            <button
+              type="submit"
+              className="btn btn-primary review-btn"
+              disabled={reviewStatus === "loading"}
+            >
+              {reviewStatus === "loading" ? "Submitting..." : "Submit Review"}
+            </button>
+            {reviewStatus === "error" && reviewError && (
+              <span className="text-danger ms-3">{reviewError.message}</span>
+            )}
+          </form>
+        </div>
+      )}
     </div>
   );
 };

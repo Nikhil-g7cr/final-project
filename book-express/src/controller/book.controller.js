@@ -40,3 +40,23 @@ export async function updateBook(request,response) {
     const result=await bookService.updateBook(id,body)
     response.status(202).send(result)
 }
+
+export async function getReviews(req, res) {
+
+  try {
+
+    const bookId = req.params.id;
+
+    const reviews = await bookService.getReviews(bookId);
+
+    res.json(reviews);
+
+  } catch (error) {
+
+    res.status(404).json({
+      message: error.message
+    });
+
+  }
+
+}

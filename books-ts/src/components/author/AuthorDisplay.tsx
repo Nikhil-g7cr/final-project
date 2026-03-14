@@ -20,7 +20,7 @@ const AuthorDisplay = () => {
 
                     <div className="booksContainer">
                         {authors.map((author: Author) => (
-                            <Card path={`${author._id}`} imageSrc={author.photo} imageAlt={author.name} imageTitle={author.name} subheading={author.name} key={author._id} />
+                            <Card path={`${author._id}`} imageSrc={author.image} imageAlt={author.name} imageTitle={author.name} subheading={author.name} key={author._id} />
                             
                         ))}
                     </div>

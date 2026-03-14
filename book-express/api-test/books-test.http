@@ -3,9 +3,12 @@
 @base_url=http://localhost:4000/api/books
 @accept_json=Accept: application/json
 
-GET {{base_url}}
+GET {{base_url}}/harry-potter-and-the-philosophers-stone
 {{accept_json}}
 
+###
+
+GET {{base_url}}/harry-potter-and-the-philosophers-stone/reviews
 ###
 # @name newBook
 POST {{base_url}}

@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+const reviewObjectSchema = new mongoose.Schema({
+  title: String,
+  reviewer: String,
+  review: String,
+  rating: Number
+}, { _id: false }); // Don't create _id for nested reviews
+
 const bookSchema = new mongoose.Schema({
   _id: { type: String },
   title: { type: String, required: true },
@@ -9,7 +16,7 @@ const bookSchema = new mongoose.Schema({
   rating: Number,
   description: { type: String, minLength: 10, maxLength: 2000 },
   tags: { type: [String], maxLength: 5 },
-  reviews: { type: [String] },
+  reviews: { type: [reviewObjectSchema], default: [] } // FIX: Changed from [String] to array of review objects
 });
 
 bookSchema.pre("save", function () {

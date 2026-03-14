@@ -14,33 +14,36 @@ interface AuthorDetailsProps {
   error: Error | null;
 }
 
-const AuthorDetails = ({ author, onDelete, status, error }: AuthorDetailsProps) => {
-
+const AuthorDetails = ({
+  author,
+  onDelete,
+  status,
+  error,
+}: AuthorDetailsProps) => {
   if (status === "loading") return <h3>loading...</h3>;
   if (status === "idle") return <h3>Please select an author</h3>;
   if (status === "error") return <h3>{error?.message}</h3>;
-  if (!author) return null; 
+  if (!author) return null;
 
   return (
     <div className="BookDetails">
       <div className="row">
         <div className="col md-col-3">
-          
-          <AuthenticatedLink 
+          <AuthenticatedLink
             linkVisibility="authenticated"
             allowedRoles={["admin", "librarian"]} // FIX: Only these roles will see the button!
-            className="btn btn-danger form-control"  
+            className="btn btn-danger form-control"
             onClick={() => onDelete(author._id)}
           >
             Delete
           </AuthenticatedLink>
           <Spacer height="10px" />
 
-          <img 
-            src={author.photo || 'https://via.placeholder.com/200?text=Author'} 
-            className="book-cover" 
-            title={author.name} 
-            alt={author.name} 
+          <img
+            src={author.image}
+            className="book-cover"
+            title={author.name}
+            alt={author.name}
           />
         </div>
         <div className="col md-col-9">

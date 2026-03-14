@@ -1,23 +1,24 @@
 import express from "express"
+import { authenticate, authorize } from "../utils/jwt.js" // FIX: Import authentication
 
 import {
-getAllReviews,
-getReviewById,
-addReview,
-updateReview,
-deleteReview
+    getAllReviews,
+    getReviewById,
+    addReview,
+    updateReview,
+    deleteReview
 } from "../controller/review.controller.js"
 
 const router = express.Router()
 
 router.route("/reviews")
-.get(getAllReviews)
-.post(addReview)
+    .get(getAllReviews) 
+    .post(authenticate, addReview) 
 
 router.route("/reviews/:id")
-.get(getReviewById)
-.put(updateReview)
-.patch(updateReview)
-.delete(deleteReview)
+    .get(getReviewById)
+    .put(authenticate, updateReview)
+    .patch(authenticate, updateReview)
+    .delete(authenticate, authorize("admin", "librarian"), deleteReview)
 
 export default router

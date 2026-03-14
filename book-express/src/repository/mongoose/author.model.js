@@ -5,7 +5,7 @@ const AuthorSchema = new mongoose.Schema({
     _id:{type:String},
     name:{type:String, require:true },
     bio:{type:String, minLength:20, maxLength:2000},
-    photo:String,
+    image:String,
     tags:{
         type:[String],
         maxLength:5

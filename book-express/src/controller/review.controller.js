@@ -1,31 +1,37 @@
-import injector from "../utils/injector.js"
+import { Review } from "../repository/mongoose/review.model.js"
+import { asyncHandler } from "../utils/http.js"
+import { AuthenticationError } from "../utils/exeption.js"
 
-const reviewService = injector.get("reviewService")
+export const getAllReviews = asyncHandler(async ({ request }) => {
+    const { bookId } = request.query; 
+    if (bookId) {
+        return await Review.find({ bookId });
+    }
+    return await Review.find();
+});
 
-export async function getAllReviews(req,res){
-    const reviews = await reviewService.getAllReviews()
-    res.send(reviews)
-}
+export const getReviewById = asyncHandler(async ({ request }) => {
+    return await Review.findById(request.params.id);
+});
 
-export async function getReviewById(req,res){
-    const {id} = req.params
-    const review = await reviewService.getReviewById(id)
-    res.send(review)
-}
+export const addReview = asyncHandler(async ({ request, user }) => {
+    if (!user) throw new AuthenticationError("You must be logged in to review.");
 
-export async function addReview(req,res){
-    const review = await reviewService.addReview(req.body)
-    res.status(201).send(review)
-}
+    const reviewData = {
+        ...request.body,
+        userId: user.subject,
+        reviewer: user.name,  // FIX: Include the reviewer's name from the authenticated user
+    };
 
-export async function updateReview(req,res){
-    const {id} = req.params
-    const review = await reviewService.updateReview(id,req.body)
-    res.send(review)
-}
+    const newReview = await Review.create(reviewData);
+    return newReview;
+});
 
-export async function deleteReview(req,res){
-    const {id} = req.params
-    await reviewService.deleteReview(id)
-    res.status(204).send()
-}
+export const updateReview = asyncHandler(async ({ request }) => {
+    return await Review.findByIdAndUpdate(request.params.id, request.body, { new: true });
+});
+
+export const deleteReview = asyncHandler(async ({ request }) => {
+    await Review.findByIdAndDelete(request.params.id);
+    return { message: "Review deleted" };
+});

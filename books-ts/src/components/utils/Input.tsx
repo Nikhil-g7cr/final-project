@@ -32,7 +32,7 @@ interface InputProps{
 }
 
 
-export const LabeledInput = ({ id, value = '', onChange,  //most import required elements
+export const LabeledInput = ({ id, value, onChange,  //most import required elements
     type = 'text', label = id, placeholder = label, //ui structure  
     errorMessage = "", //error display
     inputClassName = "", labelClassName = "", groupClassName = "", //optional styling
