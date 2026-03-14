@@ -30,10 +30,8 @@ const Review = ({ book, onReviewAdded }: ReviewProps) => {
     if (book._id) {
       setLoadingReviews(true);
 
-      // FIX: Combine legacy reviews from book.reviews with new reviews from API
       let allReviewsToShow: { userId: any; rating: any; comment: any; }[] = [];
 
-      // 1. Add legacy reviews from book.reviews array
       if (
         book.reviews &&
         Array.isArray(book.reviews) &&
@@ -48,25 +46,21 @@ const Review = ({ book, onReviewAdded }: ReviewProps) => {
         allReviewsToShow = [...legacyReviews];
       }
 
-      // 2. Fetch and add new reviews from the Review collection
       bookService
         .getBookReviews(book._id)
         .then((data) => {
-          // Map new reviews to match display format (reviewer field from new reviews)
           const newReviews = data.map((rev: any) => ({
             userId: rev.reviewer || "Anonymous",
             rating: rev.rating,
             comment: rev.comment || "No comment provided.",
           }));
 
-          // Combine all reviews - legacy first, then new
           const combined = [...allReviewsToShow, ...newReviews];
           setFetchedReviews(combined);
           setLoadingReviews(false);
         })
         .catch((err) => {
           console.error("Failed to load reviews", err);
-          // Even if API fails, show legacy reviews
           setFetchedReviews(allReviewsToShow);
           setLoadingReviews(false);
         });
@@ -92,7 +86,6 @@ const Review = ({ book, onReviewAdded }: ReviewProps) => {
 
       const updatedReviews = await bookService.getBookReviews(book._id);
 
-      // Combine legacy reviews with new reviews after adding
       let allReviewsToShow: { userId: any; rating: any; comment: any; }[] = [];
       if (
         book.reviews &&
@@ -126,15 +119,11 @@ const Review = ({ book, onReviewAdded }: ReviewProps) => {
       setReviewError(err as Error);
     }
   };
-
-  // FIX: All reviews (legacy + new) are already combined in fetchedReviews by useEffect
-
   return (
     <div className="col">
       <hr />
       <h2>Reviews</h2>
 
-      {/* Show the combined list of all reviews */}
       {loadingReviews ? (
         <Loading />
       ) : fetchedReviews.length > 0 ? (
@@ -162,10 +151,9 @@ const Review = ({ book, onReviewAdded }: ReviewProps) => {
           ))}
         </div>
       ) : (
-        <p>No reviews yet. Be the first!</p>
+        <p>No reviews yet</p>
       )}
 
-      {/* Form to add a new review */}
       {user && (
         <div className="addreview mt-4 p-3 border rounded bg-light">
           <h3>Add Your Review</h3>

@@ -52,7 +52,7 @@ const AuthorAddScreen = () => {
         <div className="row">
           <div className="col col-6">
             <LabeledInput
-              id="_id" // ensure this matches the state key
+              id="_id"
               label="Author ID"
               value={author._id || ""}
               onChange={handleInputChange}
@@ -78,7 +78,7 @@ const AuthorAddScreen = () => {
             <LabeledInput
               id="photo"
               label="Photo URL"
-              value={author.image}
+              value={author.image||""}
               onChange={handleInputChange}
               placeholder="Enter photo URL"
             />

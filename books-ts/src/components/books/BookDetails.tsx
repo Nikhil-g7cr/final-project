@@ -21,7 +21,6 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
   const { getBookById } = useBookProvider();
   const { user, favoriteBooks } = useUserProvider();
 
-  // FIX: Check favoriteBooks instead of favorites
   const isFavorite = book ? (user?.favoriteBooks?.some((favId: any) => String(favId) === String(book._id)) ?? false) : false;
 
   if (status === "loading") return <h3>loading...</h3>;
@@ -51,9 +50,13 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
       <div className="row">
         <div className="col md-col-3">
 
+          
+
+          <img src={book.cover} className="book-cover" title={book.title} alt={book.title} />
+          <Spacer height="10px" />
           <AuthenticatedLink
             linkVisibility="authenticated"
-            allowedRoles={["admin", "librarian"]} // FIX: Add this line!
+            allowedRoles={["admin", "librarian"]} 
             className="btn btn-danger form-control"
             onClick={() => onDelete(book._id)}
           >
@@ -63,7 +66,6 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
 
           <AuthenticatedLink
             linkVisibility="authenticated"
-            // FIX: Any authenticated user can favorite books, not just admin/librarian
             className="btn-container"
           >
             <button className={`btn form-control ${isFavorite ? 'btn-warning' : 'btn-success'}`}
@@ -74,7 +76,6 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
           </AuthenticatedLink>
           <Spacer height="10px" />
 
-          <img src={book.cover} className="book-cover" title={book.title} alt={book.title} />
         </div>
         <div className="col md-col-9">
           <h2>{book.title}</h2>

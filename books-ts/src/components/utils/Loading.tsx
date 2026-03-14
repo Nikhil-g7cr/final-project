@@ -1,5 +1,3 @@
-import {useState} from 'react';
-
 interface LoadingProps{
     image?:string,
     size?:number,
@@ -7,18 +5,17 @@ interface LoadingProps{
     showMessage?:boolean
 }
 
-const Loading = ({image="/loading.webp", size=80, message="loading...", showMessage=false}:LoadingProps) => {
-    //component logic here
+const Loading = ({image="/loadinggif.gif", size=80, message="loading...", showMessage=false}:LoadingProps) => {
 
-    let style={
+    const style={
         width:size,
         margin:20
     }
-    
+
     return (
-        <div className='Loading '>
+        <div className="loading">
             <img src={image} style={style} alt={message} title={message} />
-            {showMessage||message}
+            {showMessage && <p className="loadingText">{message}</p>}
         </div>
     );
 };

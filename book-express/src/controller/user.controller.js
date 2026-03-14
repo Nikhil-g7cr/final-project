@@ -1,9 +1,7 @@
 import dotenv from 'dotenv'
-// import jwt from 'jsonwebtoken'
 dotenv.config()
 import injector from '../utils/injector.js'
 import {asyncHandler} from '../utils/http.js'
-// import { AuthenticationError } from '../utils/exceptions.js'
 import { createToken } from '../utils/jwt.js'
 
 const userService = injector.get("userService")
@@ -48,10 +46,14 @@ export const getFavorites = asyncHandler(async ({ user }) => {
 })
 
 export const toggleFavorite = asyncHandler(async ({ bookId, user }) => {
-    // FIX: bookId is already spread into context from request.params by asyncHandler
     const updatedFavorites = await userService.toggleFavorite(user.subject || user.email, bookId);
     return updatedFavorites;
 })
 
 export const register = asyncHandler(async ({body})=>await userService.register(body))
 
+export const deleteUser = asyncHandler(async ({ request }) => {
+    const { email } = request.params;
+    await userService.removeUser(email);
+    return { message: "User deleted successfully", email };
+});

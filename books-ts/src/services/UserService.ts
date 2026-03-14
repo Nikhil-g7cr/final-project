@@ -1,15 +1,16 @@
 import api from './api'
-// import { delay } from './delay'; // Removed if unused
 
 let uri="users"
 
 export interface User {
-    _id?: string, // FIX: Changed to _id to match MongoDB
+    _id?: string, 
     name: string,
     roles?: [string],
     email: string,
-    favoriteBooks?: string[] // FIX: Changed to match your backend Mongoose model
+    favoriteBooks?: string[] 
+    photo?: string
 }
+
 
 class UserService { 
 
@@ -22,6 +23,12 @@ class UserService {
         } catch (error) {
             return null;
         }
+    }
+
+
+    async deleteUser(email: string) {
+        let response = await api.delete(`${uri}/${email}`);
+        return response.data;
     }
 
     async getAllUsers(){
@@ -53,16 +60,12 @@ class UserService {
         return response.data;
     }
 
-    // FIX: Completely refactored to use the new smart backend endpoint
     async favoriteBooks(user: User, bookId: string) {
         
-        // 1. Let the backend do the heavy lifting (it toggles it automatically!)
         let response = await api.post(`${uri}/favorites/${bookId}`);
         
-        // 2. The backend returns the fresh, updated array of favorite book IDs
         let updatedFavorites = response.data; 
 
-        // 3. Keep localStorage perfectly in sync so a page refresh doesn't break the UI
         let userJson = localStorage.getItem('user');
         if (userJson) {
             let localUser = JSON.parse(userJson);
@@ -74,5 +77,4 @@ class UserService {
     }
 }
 
-// Don't forget to export the instance!
 export default new UserService();

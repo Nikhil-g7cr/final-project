@@ -29,15 +29,6 @@ const AuthorDetails = ({
     <div className="BookDetails">
       <div className="row">
         <div className="col md-col-3">
-          <AuthenticatedLink
-            linkVisibility="authenticated"
-            allowedRoles={["admin", "librarian"]} // FIX: Only these roles will see the button!
-            className="btn btn-danger form-control"
-            onClick={() => onDelete(author._id)}
-          >
-            Delete
-          </AuthenticatedLink>
-          <Spacer height="10px" />
 
           <img
             src={author.image}
@@ -45,11 +36,19 @@ const AuthorDetails = ({
             title={author.name}
             alt={author.name}
           />
+          <Spacer height="10px" />
+          <AuthenticatedLink
+            linkVisibility="authenticated"
+            allowedRoles={["admin", "librarian"]} 
+            className="btn btn-danger form-control"
+            onClick={() => onDelete(author._id)}
+          >
+            Delete
+          </AuthenticatedLink>
         </div>
         <div className="col md-col-9">
           <h2>{author.name}</h2>
           <h4>Biography</h4>
-          {/* FIX: Render author.biography instead of author.bio */}
           <p>{author.biography}</p>
         </div>
       </div>

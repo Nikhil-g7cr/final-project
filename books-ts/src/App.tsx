@@ -16,6 +16,7 @@ import type { NavParameter } from "./types/NavParameter";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import AdminPage from "./components/admin/AdminPage";
+import UserManagementScreen from "./components/admin/UserManagementScreen";
 
 function App() {
   const { logout } = useUserProvider();
@@ -60,6 +61,8 @@ function App() {
       <Header title="Book's Store" nav={mainMenu} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/users" element={<UserManagementScreen />} />
         <Route path="/books" element={<BookListScreen />} />
         <Route path="/books/add" element={<BookAddScreen />} />
         <Route path="/books/:id" element={<BookDetailsScreen />} />
