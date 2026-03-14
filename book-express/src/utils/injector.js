@@ -45,9 +45,7 @@ const _get = (Component) => {
 }
 
 
-const get = (key) => {
-    //create and return an object of given key type
-    
+const get = (key) => {    
     let Component = catalog[key]
     console.log('finding key ', key, Component)
 

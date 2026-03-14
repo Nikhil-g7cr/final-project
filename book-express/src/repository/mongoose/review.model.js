@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-const reviewSchema = new mongoose.Schema({
+const reviewsSchema = new mongoose.Schema({
     bookId:{
         type:String,
         required:true
@@ -21,4 +21,4 @@ const reviewSchema = new mongoose.Schema({
     comment:String
 })
 
-export const Review = mongoose.model("reviews",reviewSchema)
+export const Review = mongoose.model("reviews",reviewsSchema)

@@ -24,7 +24,6 @@ const BookListScreen = () => {
 
           <div className="booksContainer">
             {books.map((book: Book) => (
-              // <BookCard key={book.id} book={book} />
               <Card
                 path={`/books/${book._id}`}
                 imageAlt={book.title}

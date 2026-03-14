@@ -9,7 +9,6 @@ interface UserCardProps {
 const UserCard = ({ userItem, onDeleteClick }: UserCardProps) => {
     const { user: currentUser } = useUserProvider();
     
-    // Clean fallback image
     const defaultImage = "https://via.placeholder.com/150?text=User";
 
     return (

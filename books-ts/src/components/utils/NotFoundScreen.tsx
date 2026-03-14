@@ -6,7 +6,6 @@ interface NotFoundScreenProps{
 }
 
 const NotFoundScreen = ({errorMessage}:NotFoundScreenProps) => {
-    //component logic here
     const {pathname} = useLocation();
 
     let message=errorMessage?? `Not Found ${pathname}`

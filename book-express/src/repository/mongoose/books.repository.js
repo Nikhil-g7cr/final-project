@@ -6,7 +6,6 @@ export class MongooseBookRepository {
   }
 
   async getById(id) {
-    // FIX: Explicitly select all fields including reviews
     return await Book.findById(id).lean();
   }
 
@@ -30,7 +29,6 @@ export class MongooseBookRepository {
     );
   }
   async getBookById(id) {
-    // FIX: Use .lean() to return plain objects instead of Mongoose documents
     return await Book.findById(id).lean();
   }
 }

@@ -25,10 +25,8 @@ const FavoriteBooksScreen = () => {
                 
                 let favoriteBooks: Book[] = [];
 
-                // FIX: Check for user.favoriteBooks to match your DB and backend
                 if (books && user && user.favoriteBooks) {
                     const favoriteIds = user.favoriteBooks.map((id: string) => String(id));
-                    // FIX: Check book._id instead of book.id
                     favoriteBooks = books.filter(book => favoriteIds.includes(String(book._id)));
                 }
 

@@ -27,7 +27,6 @@ appErrors
     .addInstanceHandler(AuthenticationError, error=>{
 
         let status= 401
-        //const message= status===401?"UnAuthenticated": "UnAuthorized"
         console.log('error.info',error.info);
         if(error.info.requiredRoles && error.info.requiredRoles.length>0)
             status=403

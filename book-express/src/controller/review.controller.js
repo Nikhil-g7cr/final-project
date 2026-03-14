@@ -20,7 +20,7 @@ export const addReview = asyncHandler(async ({ request, user }) => {
     const reviewData = {
         ...request.body,
         userId: user.subject,
-        reviewer: user.name,  // FIX: Include the reviewer's name from the authenticated user
+        reviewer: user.name, 
     };
 
     const newReview = await Review.create(reviewData);

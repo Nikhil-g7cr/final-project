@@ -13,7 +13,6 @@ const AuthorAddScreen = () => {
   );
   const [error, setError] = useState<Error | null>(null);
 
-  // FIX: Changed 'bio' to 'biography' to match backend
   const [author, setAuthor] = useState<Partial<Author>>({
     _id: "",
     name: "",
@@ -91,11 +90,11 @@ const AuthorAddScreen = () => {
               Biography
             </label>
             <textarea
-              id="biography" // FIX: id matches state
+              id="biography" 
               className="form-control"
-              value={author.biography || ""} // FIX: reads from biography
-              onChange={(e) => handleInputChange(e.target.value, "biography")} // FIX: updates biography
-              placeholder="Enter author biography (min 20 characters)" // Added hint for validation
+              value={author.biography || ""} 
+              onChange={(e) => handleInputChange(e.target.value, "biography")} 
+              placeholder="Enter author biography (min 20 characters)" 
               rows={4}
             />
           </div>
@@ -108,7 +107,6 @@ const AuthorAddScreen = () => {
               label="Tags (Comma separated)"
               value={author.tags?.join(", ") || ""}
               onChange={(value) => 
-                // Convert comma-separated string back into an array of trimmed strings
                 setAuthor(prev => ({
                   ...prev, 
                   tags: value.split(',').map(tag => tag.trim()).filter(tag => tag !== "")

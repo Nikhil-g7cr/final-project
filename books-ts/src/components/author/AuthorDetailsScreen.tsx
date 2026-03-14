@@ -10,7 +10,6 @@ const AuthorDetailsScreen = () => {
 
   const { deleteAuthorById, getAuthorById } = useAuthorProvider();
 
-  // Rename bookId to authorId for clarity
   const handleDelete = async (authorId: string) => {
     try {
       await deleteAuthorById(authorId);

@@ -53,7 +53,6 @@ class BookService {
             ...review,
             bookId: bookId 
         };
-        // Note: reviewer name is added by the backend using the authenticated user's name
         let response = await api.post('/reviews', payload);
         return response.data;
     }

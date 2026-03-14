@@ -49,17 +49,12 @@ export const asyncHandler = (handler)=> async (request,response,next)=>{
         response.status(status)
         if(result instanceof ResponseContent)
             return result.send(response)
-        else {
-            //any other normal result
-            
+        else {            
             return response.send(result)
         }
 
     }catch(error){
-        //option#1
-        //next(error) //this will send the error to my error middleware
-
-        //we can returns reponse from here so that we don't need middleware
+        
         let {status, body}= appErrors.execute(error,request)
         response.status(status).send(body)
     }

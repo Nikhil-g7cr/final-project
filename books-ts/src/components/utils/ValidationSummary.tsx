@@ -11,7 +11,6 @@ interface ValidationSummaryProps{
 }
 
 const ValiationSummary = ({id,error}:ValidationSummaryProps) => {
-    //component logic here
 
     if(!error || !error.errors || error?._count===0)
         return null;

@@ -1,5 +1,5 @@
 import express from "express"
-import { authenticate, authorize } from "../utils/jwt.js" // FIX: Import authentication
+import { authenticate, authorize } from "../utils/jwt.js" 
 
 import {
     getAllReviews,

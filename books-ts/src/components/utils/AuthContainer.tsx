@@ -11,7 +11,6 @@ interface AuthContainerProps {
 const AuthContainer = ({ children, auth = "any", roles = [] }: AuthContainerProps) => {
     const { user } = useUserProvider();
     
-    // Check if user has at least one of the required roles
     const hasRoles = roles.length === 0 || user?.roles?.some((r: string) => roles.includes(r));
     
     const activate = 

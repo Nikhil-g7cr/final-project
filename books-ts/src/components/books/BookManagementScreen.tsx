@@ -43,13 +43,10 @@ const BookManagementScreen=()=>{
         }
     }
 
-    // FIX: Removed 'id' from parameter since BookDetails likely doesn't pass it
     const handleDelete=async ()=>{
-        // FIX: Verify a book is selected before trying to delete
         if(!selectedBook) return;
 
         try{
-            // Use selectedBook._id instead of the parameter
             await bookService.deleteBookById(selectedBook._id)
             selectBooks(books.filter(b=>b._id!==selectedBook._id))
             selectBook(null)

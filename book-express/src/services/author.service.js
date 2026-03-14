@@ -26,15 +26,12 @@ export class AuthorService {
   }
 
   async addAuthor(author) {
-    //validate author details
     var error = new ValidationError();
     error
       .assert(author.name, "name", "required")
-      // FIX: Check for 'bio' from database but also accept 'biography' from frontend
       .assert(author.biography || author.bio, "biography", "required")
       // .assert(author.biography?.length >= 20, "biography", `Min Length required 20: found ${author.biography?.length || 0}`)
       // .assert(author.biography?.length < 2000, "biography", `Max Length required 2000: found ${author.biography?.length || 0}`)
-      // FIX: Check if tags exist before validating length, and safely use optional chaining in the error message
       .assert(
         !author.tags || author.tags.length <= 5,
         "tags",
