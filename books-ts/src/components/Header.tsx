@@ -26,8 +26,6 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
         <Link className="navbar-brand fw-semibold fs-4" to="/">
           {title}
         </Link>
-
-        {/* Mobile Toggle */}
         <button
           className="navbar-toggler"
           type="button"
@@ -37,14 +35,16 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarContent">
-
-          <Nav nav={nav} />
+        <div
+          className="collapse navbar-collapse justify-content-between"
+          id="navbarContent"
+        >
+          <div className="mx-auto">
+            <Nav nav={nav} />
+          </div>
 
           <ul className="navbar-nav ms-auto align-items-center">
-
             <li className="nav-item dropdown">
-
               <a
                 className="nav-link dropdown-toggle d-flex align-items-center gap-2"
                 href="#"
@@ -58,17 +58,14 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
                   style={{
                     width: "34px",
                     height: "34px",
-                    objectFit: "cover"
+                    objectFit: "cover",
                   }}
                 />
 
-                <span className="fw-medium">
-                  {user ? user.name : "Guest"}
-                </span>
+                <span className="fw-medium">{user ? user.name : "Guest"}</span>
               </a>
 
               <ul className="dropdown-menu dropdown-menu-end shadow-sm">
-
                 {!user && (
                   <>
                     <li>
@@ -99,7 +96,10 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
                       </Link>
                     </li>
 
-                    <AuthContainer auth="authorized" roles={["admin", "librarian"]}>
+                    <AuthContainer
+                      auth="authorized"
+                      roles={["admin", "librarian"]}
+                    >
                       <li>
                         <Link className="dropdown-item" to="/books/add">
                           Add Book
@@ -133,11 +133,8 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
                     </li>
                   </>
                 )}
-
               </ul>
-
             </li>
-
           </ul>
         </div>
       </div>

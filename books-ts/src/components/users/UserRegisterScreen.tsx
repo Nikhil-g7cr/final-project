@@ -3,10 +3,13 @@ import LabeledInput from "../utils/Input";
 import Spacer from "../utils/Spacer";
 import { useUserProvider } from "../../providers/UserProvider";
 import Loading from "../utils/Loading";
+import { useNavigate } from "react-router-dom";
 
 export interface UserRegisterScreenProps {}
 
 const UserRegisterScreen = (props: UserRegisterScreenProps) => {
+
+    const navigate=useNavigate();
   const [registerInfo, setRegisterInfo] = useState({
     name: "",
     email: "",
@@ -71,6 +74,7 @@ const UserRegisterScreen = (props: UserRegisterScreenProps) => {
     };
 
     await register(newUser);
+        navigate("/");
   };
 
   return (

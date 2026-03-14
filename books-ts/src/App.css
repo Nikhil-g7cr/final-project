@@ -4,6 +4,30 @@ body {
   padding: 0;
 }
 
+.mainNav{
+  display: flex;
+  justify-content: center;
+}
+
+.navbar{
+  background-color: #ffffff;
+  box-shadow: 0 1px 7px -4px black;
+}
+
+.nav-item{
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background-color: #aeaeae;
+  color: #ffffff;
+}
+
 .app-header {
   display: flex;
   align-items: center;
