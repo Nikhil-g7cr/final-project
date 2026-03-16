@@ -4,10 +4,10 @@ import Loading from "../utils/Loading";
 import UserCard from "./UserCards";
 
 const UserManagementScreen = () => {
+
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [deleteUser, setDeleteUser] = useState<string | null>(null);
 
     useEffect(() => {
         loadUsers();
@@ -15,83 +15,53 @@ const UserManagementScreen = () => {
 
     const loadUsers = async () => {
         try {
-            setLoading(true);
             const data = await userService.getAllUsers();
-            const usersArray = Array.isArray(data) ? data : (data?.users || data?.data || []);
+            const usersArray = Array.isArray(data) ? data : data?.users || [];
             setUsers(usersArray);
             setLoading(false);
         } catch (err: any) {
-            setError(err.response?.data?.message || err.message || "Failed to load users");
+            setError(err.message);
             setLoading(false);
         }
     };
 
-    const confirmDelete = async () => {
-        if (!deleteUser) return;
-
+    const deleteUser = async (email: string) => {
         try {
-            await userService.deleteUser(deleteUser);
-            setUsers(users.filter(u => u.email !== deleteUser));
-            setDeleteUser(null);
+            await userService.deleteUser(email);
+            setUsers(users.filter(u => u.email !== email));
         } catch {
-            alert("Failed to delete user.");
-            setDeleteUser(null);
+            alert("Delete failed");
         }
     };
 
-    if (loading) return <Loading message="Loading..." />;
+    if (loading) return <Loading message="Loading users..." />;
 
     if (error) {
         return (
-            <div className="container">
-                <div className="errorBox">{error}</div>
+            <div className="container mt-4">
+                <div className="alert alert-danger">{error}</div>
             </div>
         );
     }
 
     return (
-        <div className="container">
 
-            <div className="header">
-                <h3 className="title">Users</h3>
-            </div>
+        <div className="container mt-4">
 
-            {users.length === 0 && (
-                <div className="emptyBox">
-                    No users found in the database.
-                </div>
-            )}
+            <h3 className="mb-4">Users</h3>
 
-            <div className="userList">
-                {users.map((u, idx) => (
-                    <div className="userItem" key={u.email || idx}>
-                        <UserCard userItem={u} onDeleteClick={setDeleteUser} />
+            <div className="row">
+
+                {users.map((u, index) => (
+                    <div className="col-md-3 mb-3" key={u.email || index}>
+                        <UserCard userItem={u} onDeleteClick={deleteUser} />
                     </div>
                 ))}
+
             </div>
 
-            {deleteUser && (
-                <div className="modalBg">
-                    <div className="modalBox">
-                        <div className="modalContent">
-                            <h5 className="modalTitle">Delete User?</h5>
-                            <p className="modalText">{deleteUser}</p>
-
-                            <div className="modalButtons">
-                                <button className="btnCancel" onClick={() => setDeleteUser(null)}>
-                                    Cancel
-                                </button>
-
-                                <button className="btnDelete" onClick={confirmDelete}>
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
         </div>
+
     );
 };
 

@@ -70,7 +70,7 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
           >
             <button className={`btn form-control ${isFavorite ? 'btn-warning' : 'btn-success'}`}
             onClick={handleToggleFavorite}>
-            {isFavorite ? 'Unfavorite' : 'Add to Favorites'}
+            {isFavorite ? 'Remove' : 'Add to Favorites'}
 
             </button>
           </AuthenticatedLink>

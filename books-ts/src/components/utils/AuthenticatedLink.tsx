@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { useUserProvider } from '../../providers/UserProvider';
 
 export type LinkVisibility = "authenticated" | "unauthenticated" | "always"
-// NEW: Added the fallback type from the prototype
 export type ForOthers = "hidden" | "disabled" | "redirect"
 
 export interface AuthenticatedLinkProps {

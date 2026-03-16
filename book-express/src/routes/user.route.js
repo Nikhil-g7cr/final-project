@@ -1,4 +1,4 @@
-import { getAllUsers, register, login, currentUser, deleteUser } from '../controller/user.controller.js'
+import { getAllUsers, register, login, currentUser, deleteUser, getFavorites, toggleFavorite } from '../controller/user.controller.js'
 import express from 'express'
 import { authenticate, authorize } from '../utils/jwt.js'
 
@@ -16,5 +16,11 @@ router.route("/users/current-user")
 
 router.route("/users/:email")
     .delete(authenticate, authorize("admin"), deleteUser)
+
+router.route("/users/favorites")
+    .get(authenticate, getFavorites)
+
+router.route("/users/favorites/:bookId")
+    .post(authenticate, toggleFavorite)
 
 export default router;

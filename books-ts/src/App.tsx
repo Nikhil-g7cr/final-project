@@ -5,7 +5,7 @@ import AuthorDisplay from "./components/author/AuthorDisplay";
 import BookAddScreen from "./components/books/BookAddScreen";
 import BookDetailsScreen from "./components/books/BookDetailsScreen";
 import BookListScreen from "./components/books/BookListScreen";
-import BookManagementScreen from "./components/books/BookManagementScreen";
+import BookManagementScreen from "./components/books/_BookManagementScreen";
 import Header from "./components/Header";
 import UserLoginScreen from "./components/users/UserLoginScreen";
 import UserRegisterScreen from "./components/users/UserRegisterScreen";
@@ -17,6 +17,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import AdminPage from "./components/admin/AdminPage";
 import UserManagementScreen from "./components/admin/UserManagementScreen";
+import AuthenticatedLink from "./components/utils/AuthenticatedLink";
+import AuthContainer from "./components/utils/AuthContainer";
 
 function App() {
   const { logout } = useUserProvider();
@@ -64,8 +66,16 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/users" element={<UserManagementScreen />} />
         <Route path="/books" element={<BookListScreen />} />
-        <Route path="/books/add" element={<BookAddScreen />} />
+
+        {/* <Route path="/books/add" element={<BookAddScreen />} /> */}
+        <Route path="/books/add" element={
+            <AuthContainer auth="authorized" roles={["admin", "librarian"]}>
+                <BookAddScreen />
+            </AuthContainer>
+        } />
         <Route path="/books/:id" element={<BookDetailsScreen />} />
+
+
         <Route path="/favorites" element={<FavoriteBooksScreen />} />
         <Route path="/authors" element={<AuthorDisplay />} />
         <Route path="/authors/add" element={<AuthorAddScreen />} />

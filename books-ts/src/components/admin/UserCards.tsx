@@ -7,50 +7,41 @@ interface UserCardProps {
 }
 
 const UserCard = ({ userItem, onDeleteClick }: UserCardProps) => {
+
     const { user: currentUser } = useUserProvider();
-    
-    const defaultImage = "https://via.placeholder.com/150?text=User";
+    const defaultImage = "https://via.placeholder.com/100";
 
     return (
-        <div className="card h-100 border-0 shadow-sm p-3">
-            <div className="card-body d-flex flex-column align-items-center text-center">
-                
-                <img 
-                    src={userItem.photo || defaultImage} 
-                    alt={userItem.name} 
-                    className="rounded-circle mb-3"
-                    style={{ width: "70px", height: "70px", objectFit: "cover" }}
-                />
-                
-                <h6 className="fw-normal mb-1">{userItem.name}</h6>
-                <span className="text-muted small mb-3">{userItem.email}</span>
-                
-                <div className="mb-4">
-                    {userItem.roles && userItem.roles.length > 0 ? (
-                        userItem.roles.map(role => (
-                            <span key={role} className="badge bg-light text-dark border me-1 fw-normal">
-                                {role}
-                            </span>
-                        ))
-                    ) : (
-                        <span className="badge bg-light text-secondary border fw-normal">User</span>
-                    )}
-                </div>
+        <div className="card">
 
-                <div className="mt-auto w-100">
-                    {currentUser?.email !== userItem.email ? (
-                        <button 
-                            className="btn btn-sm btn-outline-danger w-100"
-                            onClick={() => onDeleteClick(userItem.email)}
-                        >
-                            Delete
-                        </button>
-                    ) : (
-                        <span className="btn btn-sm btn-light w-100 disabled">Current User</span>
-                    )}
-                </div>
+            <div className="card-body text-center">
+
+                <img
+                    src={userItem.photo || defaultImage}
+                    alt={userItem.name}
+                    className="rounded-circle mb-2"
+                    width="80"
+                    height="80"
+                />
+
+                <h5>{userItem.name}</h5>
+                <p>{userItem.email}</p>
+
+                {currentUser?.email !== userItem.email ? (
+                    <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => onDeleteClick(userItem.email)}
+                    >
+                        Delete
+                    </button>
+                ) : (
+                    <button className="btn btn-secondary btn-sm" disabled>
+                        Current User
+                    </button>
+                )}
 
             </div>
+
         </div>
     );
 };
