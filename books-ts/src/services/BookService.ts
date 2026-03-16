@@ -36,6 +36,11 @@ class BookService {
         return response.data;
     }
 
+    async getBooksByAuthor(authorName: string) {
+    // This finds all books where the author string matches the Author's name
+    return await api.get(authorName);
+    }
+
     // async addReview(bookId: string, review: any) {
     //     await delay(1000);
     //     let bookResponse = await api.get(`${uri}/${bookId}`);

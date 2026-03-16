@@ -52,6 +52,9 @@ const AuthorDetails = ({
           <p>{author.biography}</p>
         </div>
       </div>
+      <div>
+        {author.books}
+      </div>
     </div>
   );
 };
