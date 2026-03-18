@@ -1,0 +1,38 @@
+@base_url=http://localhost:7000/auth
+@content_type=Content-Type: application/json
+
+@accept=Accept: application/json
+
+
+# Get All Users from guest
+GET {{base_url}}
+{{accept}}
+
+###
+
+# Regiter Admin User
+POST {{base_url}}/register
+{{content_type}}
+{{accept}}
+
+{
+    "email":"nikhil@email.com",
+    "password":"pass#",
+    "name":"Nikhil",
+    "roles":["admin","author"],
+    "photo":"https://m.media-amazon.com/images/S/amzn-author-media-prod/2fuqj5h433n56ucdr3s5j1k2j9.jpg"
+}
+
+###
+POST {{base_url}}/login
+{{content_type}}
+{{accept}}
+
+{
+    "email":"nikhil@email.com",
+    "password":"pass#"
+}
+###
+GET {{base_url}}/profile
+{{content_type}}
+{{accept}}
