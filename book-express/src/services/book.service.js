@@ -1,4 +1,4 @@
-
+import PendingBook from "../repository/mongoose/PendingBook.js";
 
 export class BookService {
   constructor(bookRepository) {
@@ -17,6 +17,35 @@ export class BookService {
     return await this.repository.add(book);
   }
 
+  // async addBook(book, user) {
+  //   return await this.repository.addToPending({
+  //     ...book,
+  //     addedBy: user.id
+  //   });
+  // }
+
+  async approveBook(id) {
+    const pending = await PendingBook.findById(id);
+
+    if (!pending) throw new Error("Not found");
+
+    const newBook = await this.repository.approveBook(pending);
+
+    pending.status = "approved";
+    await pending.save();
+
+    return newBook;
+  }
+
+  async rejectBook(id) {
+    const pending = await PendingBook.findById(id);
+
+    if (!pending) throw new Error("Not found");
+
+    pending.status = "rejected";
+    await pending.save();
+  }
+
   async deleteBookById(id) {
     return await this.repository.remove(id);
   }
@@ -26,7 +55,7 @@ export class BookService {
   }
 
   async getReviews(bookId) {
-    const book = await this.repository.getBookById(bookId);
+    const book = await this.repository.getById(bookId);
 
     if (!book) {
       throw new Error("Book not found");

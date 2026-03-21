@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "react-client": "vite",
+    "dev": "vite",
     "api-server": "json-server --watch ./api/db.json --port 5000",
-    "dev": "concurrently \"npm run api-server\" \"npm run react-client\"",
+    "both": "concurrently \"npm run api-server\" \"npm run react-client\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

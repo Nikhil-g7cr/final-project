@@ -14,6 +14,7 @@ const bookSchema = new mongoose.Schema({
   cover: { type: String },
   price: Number,
   rating: Number,
+  isApproved:{type:Boolean, default:false},
   description: { type: String, minLength: 10, maxLength: 2000 },
   tags: { type: [String], maxLength: 5 },
   reviews: { type: [reviewSchema], default: [] } 

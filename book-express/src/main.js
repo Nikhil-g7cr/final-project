@@ -13,7 +13,7 @@ let port = process.argv[2] ?? process.env.PORT ?? 80;
 port = Number(port);
 
 server.on("error", (error) =>
-  console.error(`Error sarting server on port {$port}`),
+  console.error(`Error starting server on port ${port}`),
 );
 
 async function startServer() {

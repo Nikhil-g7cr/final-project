@@ -10,14 +10,20 @@ router
     .get(getAllBooks)
     .post(authenticate,authorize("admin"), addBook)
 
-router
-    .route('/books')
-    .post(authenticate,authorize("admin"),addBook)
+// router
+//     .route('/books')
+//     .post(authenticate,authorize("admin"),addBook)
+    
 router
     .route('/books/:id')
     .get(getBookById)
-    .put(updateBook)
-    .delete(deleteBook)
+    .put(authenticate, authorize("admin"), updateBook)
+    .delete(authenticate, authorize("admin"), deleteBook)
+
+// router
+//.route('/book/request')
+//     .get(BookRequests)
+//     .put(addBook)
 
 router.get("/books/:id/reviews", getReviews);
 

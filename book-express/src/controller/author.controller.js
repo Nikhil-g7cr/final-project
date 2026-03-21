@@ -19,11 +19,14 @@ export async function getAuthorById(request,response){
 }
 
 export async function addAuthor(request,response){
-        const {body,host,originalUrl} = request
+        const {body}=request
+        const host = request.get('host')
+        const originalUrl = request.originalUrl
+        const protocol = request.protocol
         const result = await authorService.addAuthor(body)
         response
                 .status(201)
-                .set("location",`${host}${originalUrl}/${result._id}`)
+                .set("location",`${protocol}://${host}${originalUrl}/${result._id}`)
                 .send(result)
 }
 

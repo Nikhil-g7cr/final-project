@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 
 const AdminPage = () => {
+    const nav=[
+        {navtag:"Open", link:"/admin/users",htag:"User Management",ptag:"Manage All Users"},
+        {navtag:"Books aproval Requests", link:"/books/approve",htag:"Book Management",ptag:"Manage All Books"},
+        {navtag:"Authors aproval Request", link:"/authors/approve",htag:"Author Management",ptag:"Manage All Authors"}
+
+    ]
     return (
         <div className="container mt-4">
 
@@ -8,7 +14,24 @@ const AdminPage = () => {
 
             <div className="row">
 
-                <div className="col-md-4 mb-3">
+                {nav.map((item)=>(
+                    <div  className="col-md-4 mb-3">
+                        <div className="card">
+                            <div className="card-body text-center">
+                                <h5>{item.htag}
+                                </h5>
+                                    <p>
+                                       {item.ptag}
+                                    </p>
+                                        <Link to={item.link} className="btn btn-primary">
+                                        {item.navtag}
+                                        </Link>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+
+                {/* <div className="col-md-4 mb-3">
                     <div className="card">
                         <div className="card-body text-center">
                             <h5>User Management</h5>
@@ -42,7 +65,7 @@ const AdminPage = () => {
                             </Link>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
 

@@ -37,22 +37,54 @@ export const parseJwtToken=async(request,response,next)=>{
 }
 
 
-const validate=(tokenError)=>{
-    if(tokenError)
-        throw tokenError
-}
+export const authenticate = (request, response, next) => {
+    if (request.tokenError) {
+        return response.status(401).json({
+            status: 401,
+            message: request.tokenError.info.message,
+            details: request.tokenError.message
+        });
+    }
+    
+    if (!request.user) {
+        return response.status(401).json({
+            status: 401,
+            message: "Authentication required - please log in"
+        });
+    }
+    
+    next();
+};
 
-export const authenticate = asyncHandler(({tokenError,next})=>{
-    validate(tokenError)
-    next()
-})
+export const authorize = (...expectedRoles) => {
+    return (request, response, next) => {
+        // First check if authenticated
+        if (request.tokenError) {
+            return response.status(401).json({
+                status: 401,
+                message: request.tokenError.info.message,
+                details: request.tokenError.message
+            });
+        }
+        
+        if (!request.user) {
+            return response.status(401).json({
+                status: 401,
+                message: "Authentication required - please log in"
+            });
+        }
 
-export const authorize = (...expectedRoles) => asyncHandler(({user,tokenError,next})=>{
-    validate(tokenError)
+        // Then check authorization
+        if (!request.user.roles.some(role => expectedRoles.includes(role))) {
+            return response.status(403).json({
+                status: 403,
+                message: "Access Denied - You do not have permission",
+                requiredRoles: expectedRoles,
+                userRoles: request.user.roles
+            });
+        }
 
-    if(!user.roles.some(role=>expectedRoles.includes(role)))
-        throw new AuthenticationError("Un Authorized", expectedRoles)
-
-    next()
-})
+        next();
+    };
+};
 

@@ -9,14 +9,13 @@ const router = express.Router()
 router
     .route("/authors")
     .get(getAllAuthors)    
-    .post(addAuthor)
+    .post(authenticate, authorize("admin", "librarian"), addAuthor)
 
 router
     .route("/authors/:id")
     .get(getAuthorById)
-    .put(authenticate, updateAuthor)   
-    .delete(deleteAuthor)    
-    // .delete(authenticate, authorize("admin","librarian"), deleteAuthor)    
+    .put(authenticate, authorize("admin", "librarian"), updateAuthor)   
+    .delete(authenticate, authorize("admin", "librarian"), deleteAuthor)    
 
 export default router
 
