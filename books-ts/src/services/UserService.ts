@@ -56,7 +56,7 @@ class UserService {
     }
 
     async register(user: any) {
-        let response = await api.post(uri, user);
+        let response = await api.post(`/${uri}/register`, user);
         return response.data;
     }
 

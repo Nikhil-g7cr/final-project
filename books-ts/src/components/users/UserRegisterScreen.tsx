@@ -70,7 +70,7 @@ const UserRegisterScreen = (props: UserRegisterScreenProps) => {
       name: registerInfo.name,
       email: registerInfo.email,
       password: registerInfo.password,
-      roles: ["user"],
+      // roles: ["user"],
     };
 
     await register(newUser);

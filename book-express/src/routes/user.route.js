@@ -6,13 +6,15 @@ const router = express.Router()
 
 router.route("/users")
     .get(authenticate, authorize("admin"), getAllUsers) 
-    .post(register,authenticate)
+    // .post(register,authenticate)
 
 router.route("/users/login")
     .post(login)
 
-// router.route("/users/register")
-//     .post(register)
+    
+
+router.route("/users/register")
+    .post(register)
 
 router.route("/users/current-user")
     .get(authenticate, currentUser)

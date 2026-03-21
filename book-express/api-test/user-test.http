@@ -11,12 +11,12 @@ GET {{base_url}}
 ###
 
 # Regiter Admin User
-POST {{base_url}}
+POST {{base_url}}/register
 {{content_type}}
 {{accept}}
 
 {
-    "email":"user@email.com",
+    "email":"user3@email.com",
     "password":"pass1",
     "name":"User",
     "roles":["user"],
