@@ -21,6 +21,7 @@ import AuthenticatedLink from "./components/utils/AuthenticatedLink";
 import AuthContainer from "./components/utils/AuthContainer";
 import BookManagment from "./components/books/BooksManagment";
 import AuthorManagment from "./components/author/AuthorManagment";
+import ProtectedRoute from "./components/utils/ProtectedRoutes";
 
 function App() {
   const { logout } = useUserProvider();
@@ -64,31 +65,31 @@ function App() {
     <div className="App">
       <Header title="Book's Store" nav={mainMenu} />
       <Routes>
+        {/* 🟢 PUBLIC ROUTES (Anyone can access) */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/admin/users" element={<UserManagementScreen />} />
         <Route path="/books" element={<BookListScreen />} />
-        <Route path="/books/approve" element={<BookManagment />} />
-
-        <Route path="/books/add" element={<BookAddScreen />} />
-        {/* <Route path="/books/add" element={
-            <AuthContainer auth="authorized" roles={["admin", "librarian"]}>
-                <BookAddScreen />
-            </AuthContainer>
-        } /> */}
         <Route path="/books/:id" element={<BookDetailsScreen />} />
-
-
-        <Route path="/favorites" element={<FavoriteBooksScreen />} />
         <Route path="/authors" element={<AuthorDisplay />} />
-        <Route path="/authors/approve" element={<AuthorManagment />} />
-        <Route path="/authors/add" element={<AuthorAddScreen />} />
         <Route path="/authors/:id" element={<AuthorDetailsScreen />} />
-
         <Route path="/user/login" element={<UserLoginScreen />} />
         <Route path="/user/register" element={<UserRegisterScreen />} />
-        <Route path="/admin" element={<AdminPage />} />
 
+        {/* 🟡 LOGGED-IN USERS ONLY (Must be authenticated) */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/books/add" element={<BookAddScreen />} />
+          <Route path="/authors/add" element={<AuthorAddScreen />} />
+          <Route path="/favorites" element={<FavoriteBooksScreen />} />
+        </Route>
+
+        {/* 🔴 ADMIN ONLY ROUTES (Must be logged in AND have the "admin" role) */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/users" element={<UserManagementScreen />} />
+          <Route path="/books/approve" element={<BookManagment />} />
+          <Route path="/authors/approve" element={<AuthorManagment />} />
+        </Route>
+
+        {/* 404 Route */}
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>
     </div>

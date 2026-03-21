@@ -29,17 +29,21 @@ const AuthenticatedLink = ({
     const { user } = useUserProvider();
     let isAuthorized = true;
 
+    // 1. Check basic authentication visibility
     if (linkVisibility === "authenticated" && !user) {
         isAuthorized = false;
     } else if (linkVisibility === "unauthenticated" && user) {
         isAuthorized = false;
-    } else if (allowedRoles && user) {
+    } 
+    // 2. Check Role-based access (if roles are specified)
+    else if (allowedRoles && user) {
         const hasRequiredRole = user.roles?.some((role: string) => allowedRoles.includes(role));
         if (!hasRequiredRole) {
             isAuthorized = false;
         }
     }
 
+    // 3. Handle Unauthorized Users based on the `forOthers` prop
     if (!isAuthorized) {
         
         if (forOthers === 'redirect' && typeof to === 'string' && !user) {
@@ -60,9 +64,11 @@ const AuthenticatedLink = ({
             );
         }
 
+        // Default behavior for "hidden"
         return null; 
     }
 
+    // 4. Handle Authorized Users
     if (!to) {
         return (
             <span className={className} onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
