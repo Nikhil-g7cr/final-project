@@ -1,5 +1,5 @@
 import express from "express"
-import { addBook, deleteBook, getAllBooks, getBookById, getReviews, updateBook } from "../controller/book.controller.js"
+import { addBook, deleteBook, getAllBooks, getBookById, getPendingBooks, getReviews, updateBook } from "../controller/book.controller.js"
 import { authenticate, authorize } from '../utils/jwt.js'
 
 
@@ -8,12 +8,13 @@ const router = express.Router()
 router
     .route('/books')
     .get(getAllBooks)
-    .post(authenticate,authorize("admin"), addBook)
+    .post(authenticate, addBook)
 
-// router
-//     .route('/books')
-//     .post(authenticate,authorize("admin"),addBook)
-    
+router
+    .route('/books/admin/pending')
+    .get(authenticate, authorize("admin"), getPendingBooks)
+
+
 router
     .route('/books/:id')
     .get(getBookById)

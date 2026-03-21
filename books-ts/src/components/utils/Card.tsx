@@ -16,15 +16,7 @@ const Card = ({
   imageAlt,
   imageTitle,
 }: CardProps) => {
-  const [isApproved, setIsApproved] = useState(false);
-
-  const handleApprove = () => {
-    setIsApproved(true);
-  };
-
-  const handleDecline = () => {
-    setIsApproved(false);
-  };
+  
 
   return (
     <div>
@@ -33,20 +25,7 @@ const Card = ({
 
         <h4>{subheading}</h4>
       </Link>
-      {!isApproved ? (
-        <div>
-          <button className="btn btn-success" onClick={handleApprove}>
-            Approve
-          </button>
-          <button className="btn btn-danger" onClick={handleDecline}>
-            Decline
-          </button>
-        </div>
-      ) : (
-        <div className="approved-message">
-          <p>Approved</p>
-        </div>
-      )}
+      
     </div>
   );
 };

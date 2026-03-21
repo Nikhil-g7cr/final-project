@@ -18,6 +18,7 @@ export interface Book{
     isbn:string| string[],
     rating:number|string,
     cover:string,
+    isApproved?: boolean,
     description:string,
 
     //optional elements

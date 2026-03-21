@@ -16,11 +16,11 @@ POST {{base_url}}
 Content-Type: application/json
 
 {
-"title":"Atomic habbits",
-"author":"James clear",
+"title":"user1 book",
+"author":"user 1",
 "description":"This book is about changing our habbits at atomic habbits",
-"price":200,
-"rating":4
+"price":400,
+"rating":5
 }
 
 ###

@@ -5,6 +5,12 @@ export class BookService {
     this.repository = bookRepository;
   }
 
+  // ------------new changes------------------
+  async getApprovedBooks() {
+    return await this.repository.getAll({ isApproved: true });
+  }
+  // ------------new changes end------------------
+
   async getAllBooks() {
     return await this.repository.getAll();
   }
@@ -25,16 +31,8 @@ export class BookService {
   // }
 
   async approveBook(id) {
-    const pending = await PendingBook.findById(id);
-
-    if (!pending) throw new Error("Not found");
-
-    const newBook = await this.repository.approveBook(pending);
-
-    pending.status = "approved";
-    await pending.save();
-
-    return newBook;
+    // Simply update the boolean flag
+    return await this.repository.update(id, { isApproved: true });
   }
 
   async rejectBook(id) {

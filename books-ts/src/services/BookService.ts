@@ -17,6 +17,18 @@ class BookService {
 
     }
 
+    // ADD THESE TWO METHODS
+    async getPendingBooks(): Promise<Book[]> {
+        await delay(1000)
+        let response = await api.get(`${uri}/admin/pending`)
+        return response.data;
+    }
+
+    async approveBook(_id: string): Promise<Book> {
+        let response = await api.patch(`${uri}/${_id}/approve`, {})
+        return response.data;
+    }
+
     
     async getBookById(_id:string):Promise<Book>{
         await delay(1000)
@@ -40,18 +52,6 @@ class BookService {
     // This finds all books where the author string matches the Author's name
     return await api.get(authorName);
     }
-
-    // async addReview(bookId: string, review: any) {
-    //     await delay(1000);
-    //     let bookResponse = await api.get(`${uri}/${bookId}`);
-    //     let book = bookResponse.data;
-    //     let currentReviews = book.reviews || [];
-    //     let updatedReviews = [...currentReviews, review];
-    //     let response = await api.patch(`${uri}/${bookId}`, {
-    //         reviews: updatedReviews
-    //     });
-    //     return response.data;
-    // }
 
     async addReview(bookId: string, review: any) {
         let payload = {

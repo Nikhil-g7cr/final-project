@@ -70,12 +70,12 @@ function App() {
         <Route path="/books" element={<BookListScreen />} />
         <Route path="/books/approve" element={<BookManagment />} />
 
-        {/* <Route path="/books/add" element={<BookAddScreen />} /> */}
-        <Route path="/books/add" element={
+        <Route path="/books/add" element={<BookAddScreen />} />
+        {/* <Route path="/books/add" element={
             <AuthContainer auth="authorized" roles={["admin", "librarian"]}>
                 <BookAddScreen />
             </AuthContainer>
-        } />
+        } /> */}
         <Route path="/books/:id" element={<BookDetailsScreen />} />
 
 

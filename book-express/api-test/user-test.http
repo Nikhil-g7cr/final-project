@@ -16,10 +16,10 @@ POST {{base_url}}
 {{accept}}
 
 {
-    "email":"nikhil@email.com",
-    "password":"pass",
-    "name":"Nikhil",
-    "roles":["admin","author"],
+    "email":"user@email.com",
+    "password":"pass1",
+    "name":"User",
+    "roles":["user"],
     "photo":"https://m.media-amazon.com/images/S/amzn-author-media-prod/2fuqj5h433n56ucdr3s5j1k2j9.jpg"
 }
 

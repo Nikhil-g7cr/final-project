@@ -6,14 +6,50 @@ const bookService = injector.get("bookService")
 //     let books=await bookService.getAllBooks()
 //     response.send(books)
 // }
+// export async function getAllBooks(request, response, next) {
+//     try {
+//         let books = await bookService.getAllBooks();
+//         response.send(books);
+//     } catch (error) {
+//         response.status(500).send({ message: error.message });
+//     }
+// }
+// ------------------new changes------------------
+// ... keep existing imports ...
+
+// 1. UPDATE THIS to only fetch approved books
 export async function getAllBooks(request, response, next) {
     try {
-        let books = await bookService.getAllBooks();
+        let books = await bookService.getApprovedBooks(); // Changed method name
         response.send(books);
     } catch (error) {
         response.status(500).send({ message: error.message });
     }
 }
+
+// 2. ADD THIS for the admin screen
+export async function getPendingBooks(request, response, next) {
+    try {
+        let books = await bookService.getPendingBooks();
+        response.send(books);
+    } catch (error) {
+        response.status(500).send({ message: error.message });
+    }
+}
+
+// 3. ADD THIS to approve a book
+export async function approveBook(request, response, next) {
+    const { id } = request.params;
+    try {
+        const result = await bookService.approveBook(id);
+        response.status(200).send({ message: "Book approved", result });
+    } catch (error) {
+        response.status(400).send({ message: error.message });
+    }
+}
+
+// ... keep getBookById, addBook, deleteBook, updateBook, getReviews ...
+// -------------------new changes end------------------
 
 export async function getBookById(request,response){
     let {id}=request.params

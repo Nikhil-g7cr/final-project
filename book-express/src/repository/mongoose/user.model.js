@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     name:{type:String, required:true},
     password:{type:String, required:true},
     photo:{type:String,default:"https://randomuser.me/api/portraits/lego/0.jpg"},
-    roles:{type:[String], default:[]},
+    roles:{type:[String], default:["user"]},
     favoriteBooks:{type:[String], default:[]}
 })
 
