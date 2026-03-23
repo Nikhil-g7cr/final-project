@@ -5,12 +5,35 @@ import authorService from "../../services/AuthorService";
 import { LabeledInput } from "../utils/Input";
 import Loading from "../utils/Loading";
 import ErrorView from "../utils/ErrorView";
+import { maxLength, minLength, required, validate, ValidationSummaryError } from "../../services/validation";
+
+const authorValidationModel = {
+  name:{
+    validators:[required("Author name is required")],
+  },
+  image:{
+    validators:[required("Author image is required")],
+  },
+  biography: {
+    validators:[
+      required("Author biography is required"),
+      minLength(20,"Biography must be at least 20 characters long."),
+      maxLength(2000,"Biography should not exceed 2000 characters.")
+    ],
+  },
+  tags:{
+    validators:[required("Author tags are required")],
+  },
+}
 
 const AuthorAddScreen = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">(
     "idle",
   );
+
+  const [validationErrors, setValidationErrors] = useState<any>({});
+
   const [error, setError] = useState<Error | null>(null);
 
   const [author, setAuthor] = useState<Partial<Author>>({
@@ -26,18 +49,49 @@ const AuthorAddScreen = () => {
       ...prev,
       [id]: value,
     }));
+
+    try{
+      validate({...author, [id]: value}, authorValidationModel, id);
+      setValidationErrors((prev: any) => {
+        const updatedErrors = {...prev};
+        delete updatedErrors[id];
+        return updatedErrors;
+      });
+    }catch(error){
+      if(error instanceof ValidationSummaryError){
+        setValidationErrors((prev: any) => ({
+          ...prev,
+          [id]: error.info.errors[id]
+        }));
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try{
+      validate({...author, tags: author.tags?.join(",") || ""}, authorValidationModel, "");
+    }catch(error){
+      if(error instanceof ValidationSummaryError){
+        setValidationErrors(error.info.errors);
+        return;
+      }
+    }
+
     try {
       setStatus("loading");
-      await authorService.addAuthorBy(author as Author);
+      
+      const payload = { ...author };
+      if (!payload._id || payload._id.trim() === "") {
+        delete payload._id;
+      }
+
+      await authorService.addAuthorBy(payload as Author);
       setStatus("done");
       navigate("/authors");
-    } catch (err) {
+    } catch (err: any) {
       setStatus("error");
-      setError(err as Error);
+      setError(new Error(err.response?.data?.message || err.message));
     }
   };
 
@@ -68,6 +122,7 @@ const AuthorAddScreen = () => {
               value={author.name || ""}
               onChange={handleInputChange}
               placeholder="Enter author name"
+              errorMessage={validationErrors.name}
             />
           </div>
         </div>
@@ -80,6 +135,7 @@ const AuthorAddScreen = () => {
               value={author.image || ""}
               onChange={handleInputChange}
               placeholder="Enter photo URL"
+              errorMessage={validationErrors.image}
             />
           </div>
         </div>
@@ -97,6 +153,7 @@ const AuthorAddScreen = () => {
               placeholder="Enter author biography (min 20 characters)" 
               rows={4}
             />
+            <small className="form-text text-danger">{validationErrors.biography}</small>
           </div>
         </div>
         
@@ -106,12 +163,29 @@ const AuthorAddScreen = () => {
               id="tags"
               label="Tags (Comma separated)"
               value={author.tags?.join(", ") || ""}
-              onChange={(value) => 
+              errorMessage={validationErrors.tags}
+              onChange={(value) => {
                 setAuthor(prev => ({
                   ...prev, 
                   tags: value.split(',').map(tag => tag.trim()).filter(tag => tag !== "")
-                }))
-              }
+                }));
+
+                try {
+                  validate({...author, tags: value}, authorValidationModel, "tags");
+                  setValidationErrors((prev: any) => {
+                    const updatedErrors = {...prev};
+                    delete updatedErrors.tags;
+                    return updatedErrors;
+                  });
+                } catch(error) {
+                  if(error instanceof ValidationSummaryError){
+                    setValidationErrors((prev: any) => ({
+                      ...prev,
+                      tags: error.info.errors.tags
+                    }));
+                  }
+                }
+              }}
               placeholder="e.g. fiction, mystery, bestseller"
             />
           </div>

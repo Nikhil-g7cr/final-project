@@ -29,7 +29,12 @@ export const throwOnError=  (errorCondition:boolean, errorMessage:string, key:st
     }
 }
 
-export const required= (errorMessage="Required") =>(value:string, key:string,context:any)=> throwOnError(!value || !value.trim, errorMessage,key,context)
+export const required = (errorMessage = "Required") => (value: any, key: string, context: any) => {
+    const isInvalid = value === undefined || value === null || (typeof value === "string" && value.trim() === "");
+    
+    throwOnError(isInvalid, errorMessage, key, context);
+}
+
 
 export const isNumber=(errorMessage="Should be Number") => (value:any, key:string,context:any)=>{
     throwOnError( isNaN(value), errorMessage, key, context)
