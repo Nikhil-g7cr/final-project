@@ -91,7 +91,7 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
               <strong>Price:</strong> ₹ {book.price}
             </li>
             <li>
-              <strong>Rating:</strong> {book.rating} / 5 ★
+              <strong>Rating:</strong> {book.rating} / 5
             </li>
             <li>
               <strong>Author:</strong> {book.author}
