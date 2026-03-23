@@ -9,6 +9,7 @@ import AuthenticatedLink from "../utils/AuthenticatedLink";
 import BookCard from "../books/BookCard"; 
 import BookService from "../../services/BookService";
 import Loading from "../utils/Loading";
+import AuthorUpdateScreen from "./AuthorUpdateScreen";
 
 interface IdSelectorFunction<T> {
   (id: T): void;
@@ -19,6 +20,11 @@ interface AuthorDetailsProps {
   onDelete: IdSelectorFunction<string>;
   status: Status;
   error: Error | null;
+}
+
+const onUpdate = (id: string) => {
+  console.log("Update author with id:", id);
+  // Implement navigation to update screen or show update form
 }
 
 const AuthorDetails = ({
@@ -68,6 +74,17 @@ const AuthorDetails = ({
             onClick={() => onDelete(author._id)}
           >
             Delete
+          </AuthenticatedLink>
+
+          <Spacer height="10px" />
+          <AuthenticatedLink
+            linkVisibility="authenticated"
+            allowedRoles={["admin", "librarian"]}
+            className="btn btn-primary form-control"
+            onClick={() => onUpdate(author._id)}
+            to={`/authors/update/${author._id}`}
+          >
+            Update
           </AuthenticatedLink>
         </div>
 

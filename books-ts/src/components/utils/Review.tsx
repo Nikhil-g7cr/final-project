@@ -1,4 +1,4 @@
-import { useState, useEffect, type SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import type { Book, Reviews } from "../../types/Book";
 import Spacer from "./Spacer";
 import { useUserProvider } from "../../providers/UserProvider";
