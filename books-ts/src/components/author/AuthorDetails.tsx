@@ -71,10 +71,10 @@ const AuthorDetails = ({
           </AuthenticatedLink>
         </div>
 
-        <div className="col md-col-9 book-info-container">
-          <h2 className="book-title">{author.name}</h2>
-          <h4 className="book-description-title">Biography</h4>
-          <p className="book-description-text">{author.biography}</p>
+        <div className="col md-col-9 common-info-container">
+          <h2 className="common-title">{author.name}</h2>
+          <h4 className="common-description-title">Biography</h4>
+          <p className="common-description-text">{author.biography}</p>
         </div>
 
 
@@ -82,8 +82,8 @@ const AuthorDetails = ({
       
       <Spacer height="30px" />
       <div className="author-books-section">
-        <h3 className="book-description-title">Books by {author.name}</h3>
-        <hr/>
+        <h3 className="common-description-title">Books by {author.name}</h3>
+        {/* <hr/> */}
         {booksLoading ? (
             <p>Loading books... ?? <Loading/></p>
         ) : booksByAuthor.length === 0 ? (

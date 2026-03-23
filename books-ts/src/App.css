@@ -426,7 +426,6 @@ body {
   justify-content: center;
   margin-top: 40px;
   padding-top: 30px;
-  border-top: 1px solid #e2e8f0;
   width: 100%;
 }
 
@@ -489,13 +488,13 @@ body {
   margin: 60px auto;
   padding: 40px 30px;
   background-color: #ffffff;
-  border: 1px solid #000000;
+  border: 1px solid #dddddd;
   border-radius: 12px;
 }
 
 .UserLoginScreen h2 {
   text-align: center;
-  color: #1e293b;
+  color: #000000;
   margin-top: 0;
   margin-bottom: 24px;
 }
@@ -510,7 +509,7 @@ body {
   padding: 12px;
   margin-top: 8px;
   margin-bottom: 20px;
-  border: 1px solid black;
+  border: 1px solid #dedede;
   border-radius: 6px;
 }
 
@@ -701,14 +700,14 @@ body {
     background: #c82333;
 }
 
-.book-info-container {
+.common-info-container {
   padding: 20px 30px;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.book-title {
+.common-title {
   font-size: 2.2rem;
   color: #2c3e50;
   margin-bottom: 20px;
@@ -717,7 +716,7 @@ body {
   font-weight: 700;
 }
 
-.book-details-list {
+.common-details-list {
   list-style: none;
   padding: 0;
   display: flex;
@@ -726,7 +725,7 @@ body {
   margin-bottom: 30px;
 }
 
-.book-details-list li {
+.common-details-list li {
   font-size: 1.05rem;
   color: #495057;
   background-color: #f8f9fa;
@@ -735,19 +734,19 @@ body {
   border: 1px solid #e9ecef;
 }
 
-.book-details-list li strong {
+.common-details-list li strong {
   color: #212529;
   margin-right: 5px;
 }
 
-.book-description-title {
+.common-description-title {
   font-size: 1.5rem;
   color: #34495e;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.book-description-text {
+.common-description-text {
   font-size: 1.1rem;
   line-height: 1.7;
   color: #555555;

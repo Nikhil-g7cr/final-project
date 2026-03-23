@@ -83,10 +83,10 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
           </AuthenticatedLink>
           <Spacer height="10px" />
         </div>
-        <div className="col md-col-9 book-info-container">
-          <h2 className="book-title">{book.title}</h2>
+        <div className="col md-col-9 common-info-container">
+          <h2 className="common-title">{book.title}</h2>
 
-          <ul className="book-details-list">
+          <ul className="common-details-list">
             <li>
               <strong>Price:</strong> ₹ {book.price}
             </li>
@@ -98,8 +98,8 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
             </li>
           </ul>
 
-          <h2 className="book-description-title">Description</h2>
-          <p className="book-description-text">{book.description}</p>
+          <h2 className="common-description-title">Description</h2>
+          <p className="common-description-text">{book.description}</p>
         </div>
       </div>
       <div className="reviews-section">

@@ -75,9 +75,9 @@ const AuthorAddScreen = () => {
         <div className="row">
           <div className="col">
             <LabeledInput
-              id="photo"
+              id="image"
               label="Photo URL"
-              value={author.image||""}
+              value={author.image || ""}
               onChange={handleInputChange}
               placeholder="Enter photo URL"
             />

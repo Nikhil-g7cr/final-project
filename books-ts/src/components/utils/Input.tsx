@@ -34,9 +34,8 @@ interface InputProps{
 
 export const LabeledInput = ({ id, value, onChange,  
     type = 'text', label = id, placeholder = label, 
-    errorMessage = "", //error display
+    errorMessage = "", 
     inputClassName = "", labelClassName = "", groupClassName = "", 
-    //input control
     inputBuilder
 }:LabeledInputProps) => {
 
