@@ -8,7 +8,7 @@ const secret = process.env.JWT_SECRET??"This is super secret"
 const issuer = process.env.JWT_ISSUER
 
 
-export const createToken=async(data,option={expiresIn:'7d'})=>{
+export const createToken=async(data,option={expiresIn:'1d'})=>{
 
     return await jwt.sign({
         ...data,
