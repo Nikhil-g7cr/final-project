@@ -26,6 +26,9 @@ const UserCard = ({ userItem, onDeleteClick }: UserCardProps) => {
 
                 <h5>{userItem.name}</h5>
                 <p>{userItem.email}</p>
+                <p>{userItem.roles?.map((role) => <span key={role} className="badge bg-secondary text-white me-1">
+                    {role}
+                </span>)}</p>
 
                 {currentUser?.email !== userItem.email ? (
                     <button
