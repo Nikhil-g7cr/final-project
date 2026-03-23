@@ -22,6 +22,7 @@ import AuthContainer from "./components/utils/AuthContainer";
 import BookManagment from "./components/books/BooksManagment";
 import AuthorManagment from "./components/author/AuthorManagment";
 import ProtectedRoute from "./components/utils/ProtectedRoutes";
+import Profile from "./components/utils/Profile";
 
 function App() {
   const { logout } = useUserProvider();
@@ -72,11 +73,13 @@ function App() {
         <Route path="/authors/:id" element={<AuthorDetailsScreen />} />
         <Route path="/user/login" element={<UserLoginScreen />} />
         <Route path="/user/register" element={<UserRegisterScreen />} />
+        {/* <Route path="/user/profile" element={<AuthContainer auth="authorized"><Profile /></AuthContainer>} /> */}
 
         <Route element={<ProtectedRoute />}>
           <Route path="/books/add" element={<BookAddScreen />} />
           <Route path="/authors/add" element={<AuthorAddScreen />} />
           <Route path="/favorites" element={<FavoriteBooksScreen />} />
+          <Route path="/user/profile" element={<Profile />} />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>

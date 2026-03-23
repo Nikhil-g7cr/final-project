@@ -20,6 +20,16 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
 
   const defaultImage = "https://randomuser.me/api/portraits/men/51.jpg";
 
+  const navlist = [
+    // {label:"My Books", path:"/my-books"},
+    { label: "Profile", path: "/user/profile", secure: false },
+    { label: "Favorite Books", path: "/favorites", secure: false },
+    { label: "Add Book", path: "/books/add", secure: true },
+    { label: "Add Author", path: "/authors/add", secure: true },
+    { label: "Admin Dashboard", path: "/admin", secure: true },
+    // {label:"My Authors", path:"/my-authors"},
+  ];
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -84,7 +94,25 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
 
                 {user && (
                   <>
-                    <li>
+                  
+                    {navlist.map((item, index) => (
+                      <li key={index}>
+                        {item.secure === true ? (
+                          <AuthContainer auth="authorized" roles={["admin", "librarian"]}>
+                            <Link className="dropdown-item" to={item.path}>
+                              {item.label}
+                            </Link>
+                          </AuthContainer>
+                        ) : (
+                          <Link className="dropdown-item" to={item.path}>
+                            {item.label}
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+
+
+                    {/* <li>
                       <Link className="dropdown-item" to="/user/profile">
                         Profile
                       </Link>
@@ -94,9 +122,9 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
                       <Link className="dropdown-item" to="/favorites">
                         Favorite Books
                       </Link>
-                    </li>
+                    </li> */}
 
-                    <AuthContainer
+                    {/* <AuthContainer
                       auth="authorized"
                       roles={["admin", "librarian"]}
                     >
@@ -117,7 +145,7 @@ const Header: React.FC<HeaderProps> = ({ title, nav }) => {
                           Admin Dashboard
                         </Link>
                       </li>
-                    </AuthContainer>
+                    </AuthContainer> */}
 
                     <li>
                       <hr className="dropdown-divider" />
