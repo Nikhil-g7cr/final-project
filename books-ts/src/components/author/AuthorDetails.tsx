@@ -8,6 +8,7 @@ import type { Status } from "../../types/Status";
 import AuthenticatedLink from "../utils/AuthenticatedLink";
 import BookCard from "../books/BookCard"; 
 import BookService from "../../services/BookService";
+import Loading from "../utils/Loading";
 
 interface IdSelectorFunction<T> {
   (id: T): void;
@@ -69,20 +70,24 @@ const AuthorDetails = ({
             Delete
           </AuthenticatedLink>
         </div>
-        <div className="col md-col-9">
-          <h2>{author.name}</h2>
-          <h4>Biography</h4>
-          <p>{author.biography}</p>
+
+        <div className="col md-col-9 book-info-container">
+          <h2 className="book-title">{author.name}</h2>
+          <h4 className="book-description-title">Biography</h4>
+          <p className="book-description-text">{author.biography}</p>
         </div>
+
+
       </div>
       
       <Spacer height="30px" />
       <div className="author-books-section">
-        <h3>Books by {author.name}</h3>
+        <h3 className="book-description-title">Books by {author.name}</h3>
+        <hr/>
         {booksLoading ? (
-            <p>Loading books...</p>
+            <p>Loading books... ?? <Loading/></p>
         ) : booksByAuthor.length === 0 ? (
-            <p>No approved books found for this author yet.</p>
+            <p>No book found for {author.name} author</p>
         ) : (
             <div className="row">
                 {booksByAuthor.map((book) => (
