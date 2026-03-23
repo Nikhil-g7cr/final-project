@@ -700,3 +700,56 @@ body {
 .btnDelete:hover {
     background: #c82333;
 }
+
+.book-info-container {
+  padding: 20px 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.book-title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f1f2f6;
+  padding-bottom: 12px;
+  font-weight: 700;
+}
+
+.book-details-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; 
+  margin-bottom: 30px;
+}
+
+.book-details-list li {
+  font-size: 1.05rem;
+  color: #495057;
+  background-color: #f8f9fa;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.book-details-list li strong {
+  color: #212529;
+  margin-right: 5px;
+}
+
+.book-description-title {
+  font-size: 1.5rem;
+  color: #34495e;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.book-description-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555555;
+  text-align: justify;
+}

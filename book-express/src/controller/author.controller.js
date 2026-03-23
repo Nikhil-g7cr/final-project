@@ -44,3 +44,13 @@ export async function updateAuthor(request,response){
 }
 
 
+export async function getPendingAuthors(request, response) {
+    let authors = await authorService.repository.getAll({ isApproved: false });
+    response.send(authors);
+}
+
+export async function approveAuthor(request, response) {
+    const { id } = request.params;
+    const result = await authorService.updateAuthor(id, { isApproved: true });
+    response.status(200).send({ message: "Author approved", result });
+}

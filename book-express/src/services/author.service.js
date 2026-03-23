@@ -5,7 +5,8 @@ export class AuthorService {
   }
 
   async getAllAuthors() {
-    let authors = await this.repository.getAll();
+    // let authors = await this.repository.getAll();
+    let authors = await this.repository.getAll({ isApproved: true });
 
     return authors.map((author) => ({
       _id: author._id,

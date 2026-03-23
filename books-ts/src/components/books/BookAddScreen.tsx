@@ -34,12 +34,23 @@ const BookAddScreen = () => {
     e.preventDefault();
     try {
       setStatus("loading");
-      await bookService.addBookBy(book as Book);
+      const payload = { ...book };
+
+      if (!payload._id || payload._id.trim() === "") {
+        delete payload._id;
+      }
+      if (payload.description && payload.description.length < 10) {
+        throw new Error("Description must be at least 10 characters long");
+      }
+
+      await bookService.addBookBy(payload as Book);
       setStatus("done");
       navigate("/books");
-    } catch (err) {
+    } catch (err: any) {
       setStatus("error");
-      setError(err as Error);
+      console.error("Backend Error:", err.response?.data || err.message);
+
+      setError(new Error(err.response?.data?.message || err.message));
     }
   };
 
@@ -50,80 +61,82 @@ const BookAddScreen = () => {
   return (
     <div className="BookAddScreen">
       <div className="">
-
-      <h2>Add New Book</h2>
-      <form onSubmit={handleSubmit} className="form">
-        <div className="row">
-          <LabeledInput
-            id="id"
-            label="Book ID"
-            value={book._id || ""}
-            onChange={handleInputChange}
-            placeholder=""
+        <h2>Add New Book</h2>
+        <form onSubmit={handleSubmit} className="form">
+          <div className="row">
+            <LabeledInput
+              id="id"
+              label="Book ID"
+              value={book._id || ""}
+              onChange={handleInputChange}
+              placeholder=""
             />
 
-          <LabeledInput
-            id="title"
-            label="Title"
-            value={book.title || ""}
-            onChange={handleInputChange}
-            placeholder="Enter book title"
+            <LabeledInput
+              id="title"
+              label="Title"
+              value={book.title || ""}
+              onChange={handleInputChange}
+              placeholder="Enter book title"
             />
 
-          <LabeledInput
-            id="author"
-            label="Author"
-            value={book.author || ""}
-            onChange={handleInputChange}
-            placeholder="Enter author name"
+            <LabeledInput
+              id="author"
+              label="Author"
+              value={book.author || ""}
+              onChange={handleInputChange}
+              placeholder="Enter author name"
             />
 
-          <LabeledInput
-            id="price"
-            label="Price (₹)"
-            type="number"
-            value={String(book.price || "")}
-            onChange={handleInputChange}
-            placeholder="Enter price"
+            <LabeledInput
+              id="price"
+              label="Price (₹)"
+              type="number"
+              value={String(book.price || "")}
+              onChange={handleInputChange}
+              placeholder="Enter price"
             />
 
-          <LabeledInput
-            id="rating"
-            label="Rating"
-            type="number"
-            value={String(book.rating || "")}
-            onChange={handleInputChange}
-            placeholder="Enter rating (0-5)"
+            <LabeledInput
+              id="rating"
+              label="Rating"
+              type="number"
+              value={String(book.rating || "")}
+              onChange={handleInputChange}
+              placeholder="Enter rating (0-5)"
             />
 
-          <LabeledInput
-            id="cover"
-            label="Cover URL"
-            value={book.cover || ""}
-            onChange={handleInputChange}
-            placeholder="Enter cover image URL"
+            <LabeledInput
+              id="cover"
+              label="Cover URL"
+              value={book.cover || ""}
+              onChange={handleInputChange}
+              placeholder="Enter cover image URL"
             />
 
-          <label htmlFor="description" className="form-label">
-            Description
-          </label>
-          <textarea
-            id="description"
-            className="form-control"
-            value={book.description}
-            onChange={(e) => handleInputChange(e.target.value, "description")}
-            placeholder="Enter book description"
-            rows={4}
+            <label htmlFor="description" className="form-label">
+              Description
+            </label>
+            <textarea
+              id="description"
+              className="form-control"
+              value={book.description}
+              onChange={(e) => handleInputChange(e.target.value, "description")}
+              placeholder="Enter book description"
+              rows={4}
             />
-        </div>
+          </div>
 
-        <div className="row mt-3">
-          <button type="submit" className="btn-primary form-control submit-btn ">
-            Add Book
-          </button>
-        </div>
-      </form>
-            </div>
+          <div className="row mt-3">
+            <button
+              type="submit"
+              className="btn-primary form-control submit-btn "
+            >
+              Add Book
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

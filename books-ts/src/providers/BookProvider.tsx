@@ -24,7 +24,6 @@ const bookReducer = {
       );
     }
 
-    // store.model = action.payload;
   },
 
   addBookBy(store: any, action: any) {

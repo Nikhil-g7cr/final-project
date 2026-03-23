@@ -21,7 +21,11 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
   const { getBookById } = useBookProvider();
   const { user, favoriteBooks } = useUserProvider();
 
-  const isFavorite = book ? (user?.favoriteBooks?.some((favId: any) => String(favId) === String(book._id)) ?? false) : false;
+  const isFavorite = book
+    ? (user?.favoriteBooks?.some(
+        (favId: any) => String(favId) === String(book._id),
+      ) ?? false)
+    : false;
 
   if (status === "loading") return <h3>loading...</h3>;
   if (status === "idle") return <h3>Please select a book</h3>;
@@ -39,7 +43,7 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
   const handleToggleFavorite = async () => {
     if (!user) return;
     try {
-     await favoriteBooks(user, book._id);
+      await favoriteBooks(user, book._id);
     } catch (err) {
       console.error("Failed to toggle favorite:", err);
     }
@@ -49,14 +53,16 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
     <div className="BookDetails">
       <div className="row">
         <div className="col md-col-3">
-
-          
-
-          <img src={book.cover} className="book-cover" title={book.title} alt={book.title} />
+          <img
+            src={book.cover}
+            className="book-cover"
+            title={book.title}
+            alt={book.title}
+          />
           <Spacer height="10px" />
           <AuthenticatedLink
             linkVisibility="authenticated"
-            allowedRoles={["admin", "librarian"]} 
+            allowedRoles={["admin", "librarian"]}
             className="btn btn-danger form-control"
             onClick={() => onDelete(book._id)}
           >
@@ -68,23 +74,32 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
             linkVisibility="authenticated"
             className="btn-container"
           >
-            <button className={`btn form-control ${isFavorite ? 'btn-warning' : 'btn-success'}`}
-            onClick={handleToggleFavorite}>
-            {isFavorite ? 'Remove' : 'Add to Favorites'}
-
+            <button
+              className={`btn form-control ${isFavorite ? "btn-warning" : "btn-success"}`}
+              onClick={handleToggleFavorite}
+            >
+              {isFavorite ? "Remove" : "Add to Favorites"}
             </button>
           </AuthenticatedLink>
           <Spacer height="10px" />
-
         </div>
-        <div className="col md-col-9">
-          <h2>{book.title}</h2>
-          <ul>
-            <li>Price: ₹ {book.price}</li>
-            <li>Rating: {book.rating} / 5</li>
+        <div className="col md-col-9 book-info-container">
+          <h2 className="book-title">{book.title}</h2>
+
+          <ul className="book-details-list">
+            <li>
+              <strong>Price:</strong> ₹ {book.price}
+            </li>
+            <li>
+              <strong>Rating:</strong> {book.rating} / 5 ★
+            </li>
+            <li>
+              <strong>Author:</strong> {book.author}
+            </li>
           </ul>
-          <h2>Description</h2>
-          <p>{book.description}</p>
+
+          <h2 className="book-description-title">Description</h2>
+          <p className="book-description-text">{book.description}</p>
         </div>
       </div>
       <div className="reviews-section">

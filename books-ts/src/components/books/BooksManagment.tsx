@@ -1,122 +1,88 @@
-import type { Book } from "../../types/Book"
-import BookDetails from "./BookDetails"
-import BookList from "./BookList"
-import { useState, useEffect } from "react"
-import bookService from '../../services/BookService'
-import type { Status } from "../../types/Status"
+import { useState, useEffect } from "react";
+import BookService from "../../services/BookService";
+import type { Book } from "../../types/Book";
 
 const BookManagment = () => {
-    const [viewMode, setViewMode] = useState<"approved" | "pending">("pending"); // Toggle state
-    const [books, selectBooks] = useState<Book[]>([])
-    const [selectedBook, selectBook] = useState<Book | null>(null)
+    const [pendingBooks, setPendingBooks] = useState<Book[]>([]);
 
-    const [bookListError, setBookListError] = useState<Error | null>(null)
-    const [bookError, setBookError] = useState<Error | null>(null)
-    
-    const [listStatus, setListStatus] = useState<Status>("loading")
-    const [bookStatus, setBookStatus] = useState<Status>("idle")
-
-    // Refetch books when viewMode changes
     useEffect(() => {
-        setListStatus("loading")
-        
-        // Decide which API to call based on the toggle
-        const fetchMethod = viewMode === "pending" 
-            ? bookService.getPendingBooks() 
-            : bookService.getAllBooks();
+        BookService.getPendingBooks()
+            .then(setPendingBooks)
+            .catch(err => console.error(err));
+    }, []);
 
-        fetchMethod
-            .then((books) => {
-                selectBooks(books)
-                setListStatus("done")
-                setBookListError(null)
-                selectBook(null) // Reset selection when changing tabs
-            })
-            .catch(error => {
-                setListStatus("error")
-                setBookListError(error)
-            })
-    }, [viewMode])
-
-    const handleBookSelect = async (id: string) => {
+    const handleApprove = async (id: string) => {
         try {
-            setBookStatus("loading")
-            let book = await bookService.getBookById(id)
-            selectBook(book)
-            setBookStatus("done")
+            await BookService.approveBook(id);
+            
+            setPendingBooks((currentBooks) => 
+                currentBooks.filter((book) => book._id !== id)
+            );
+            
         } catch (error) {
-            setBookStatus("error")
-            setBookError(error as Error)
+            console.error(error);
         }
-    }
+    };
 
-    const handleDelete = async () => {
-        if (!selectedBook) return;
+    const handleReject = async (id: string) => {
+        const confirmReject = window.confirm("Are you sure you want to reject and delete this book request?");
+        if (!confirmReject) return;
+
         try {
-            await bookService.deleteBookById(selectedBook._id)
-            selectBooks(books.filter(b => b._id !== selectedBook._id))
-            selectBook(null)
+            await BookService.deleteBookById(id);
+            
+            setPendingBooks((currentBooks) => 
+                currentBooks.filter((book) => book._id !== id)
+            );
+            
         } catch (error) {
-            console.log((error as Error).message)
+            console.error(error);
         }
-    }
-
-    // New Approve Handler
-    const handleApprove = async () => {
-        if (!selectedBook) return;
-        try {
-            await bookService.approveBook(selectedBook._id);
-            // Remove the approved book from the pending list UI
-            selectBooks(books.filter(b => b._id !== selectedBook._id));
-            selectBook(null);
-            alert("Book approved successfully!");
-        } catch(error) {
-            console.error("Failed to approve", error);
-        }
-    }
-
-    if (listStatus === "loading") return <h3>Loading...</h3>
+    };
 
     return (
-        <div className="BookManagment">
-            <h1>Book Management</h1>
-            
-            {/* View Toggle Buttons */}
-            <div style={{ marginBottom: '20px' }}>
-                <button 
-                    className={`btn ${viewMode === 'pending' ? 'btn-primary' : 'btn-secondary'}`} 
-                    onClick={() => setViewMode('pending')}
-                    style={{ marginRight: '10px' }}
-                >
-                    View Pending Books
-                </button>
-                <button 
-                    className={`btn ${viewMode === 'approved' ? 'btn-primary' : 'btn-secondary'}`} 
-                    onClick={() => setViewMode('approved')}
-                >
-                    View Approved Books
-                </button>
-            </div>
-            
-            <div className="row">
-                <div className="col col-3">
-                    <BookList books={books} onBookSelect={handleBookSelect}/>
-                </div>
-                <div className="col col-7">
-                    {/* Render the selected book. We add an Approve button right above/below BookDetails */}
-                    {selectedBook && viewMode === "pending" && (
-                        <div style={{ marginBottom: '15px', padding: '10px', backgroundColor: '#fff3cd', border: '1px solid #ffeeba' }}>
-                            <h4>Approval Required</h4>
-                            <button className="btn btn-success" onClick={handleApprove}>
-                                Approve this Book
-                            </button>
+        <div className="container mt-4">
+            <h2>Pending Books Approval</h2>
+            {pendingBooks.length === 0 ? (
+                <p>No pending books to approve.</p>
+            ) : (
+                <div className="list-group">
+                    {pendingBooks.map((book) => (
+                        <div key={book._id} className="list-group-item d-flex justify-content-between align-items-center mb-3 shadow-sm rounded">
+                            <div className="d-flex align-items-center gap-3">
+                                {book.cover && (
+                                    <img 
+                                        src={book.cover} 
+                                        alt={book.title} 
+                                        style={{ width: "50px", height: "75px", objectFit: "cover", borderRadius: "4px" }} 
+                                    />
+                                )}
+                                <div>
+                                    <h5 className="mb-0">{book.title}</h5>
+                                    <small className="text-muted">By {book.author}</small>
+                                </div>
+                            </div>
+                            
+                            <div className="d-flex gap-2">
+                                <button 
+                                    className="btn btn-success" 
+                                    onClick={() => handleApprove(book._id!)}
+                                >
+                                    Approve
+                                </button>
+                                <button 
+                                    className="btn btn-danger" 
+                                    onClick={() => handleReject(book._id!)}
+                                >
+                                    Reject
+                                </button>
+                            </div>
                         </div>
-                    )}
-                    <BookDetails book={selectedBook} status={bookStatus} error={bookError} onDelete={handleDelete} />
+                    ))}
                 </div>
-            </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default BookManagment
+export default BookManagment;

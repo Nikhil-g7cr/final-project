@@ -3,8 +3,12 @@ import { Author } from "./author.model.js";
 
 export class MongooseAuthorRepository{
 
-    async getAll(){
-        return await Author.find()
+    // async getAll(){
+    //     return await Author.find()
+    // }
+
+    async getAll(query = {}){
+        return await Author.find(query)
     }
 
     async getById(id){

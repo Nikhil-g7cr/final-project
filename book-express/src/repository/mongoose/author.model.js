@@ -9,7 +9,8 @@ const AuthorSchema = new mongoose.Schema({
     tags:{
         type:[String],
         maxLength:5
-    }
+    },
+    isApproved: { type: Boolean, default: false }
 })
 
 

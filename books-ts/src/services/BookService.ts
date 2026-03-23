@@ -10,16 +10,13 @@ class BookService {
   
 
     async getAllBooks(){
-        await delay(1000)
+        // await delay(1000)
         let response = await api.get(uri)
-        // console.log("Data",response.data)
         return response.data;
 
     }
-
-    // ADD THESE TWO METHODS
     async getPendingBooks(): Promise<Book[]> {
-        await delay(1000)
+        // await delay(1000)
         let response = await api.get(`${uri}/admin/pending`)
         return response.data;
     }
@@ -31,26 +28,26 @@ class BookService {
 
     
     async getBookById(_id:string):Promise<Book>{
-        await delay(1000)
+        // await delay(1000)
         let response= await api.get(`${uri}/${_id}`)
+        return response.data;
+    }
+
+    async getBooksByAuthor(authorName: string) {
+        let response = await api.get(`${uri}/author/${encodeURIComponent(authorName)}`);
         return response.data;
     }
     
     async deleteBookById(_id:string){
-        await delay(1000)
+        // await delay(1000)
         await api.delete(`${uri}/${_id}`)
         return {_id};
     }
     
     async addBookBy(book:Book){
-        await delay(1000)
+        // await delay(1000)
         let response= await api.post(uri, book)
         return response.data;
-    }
-
-    async getBooksByAuthor(authorName: string) {
-    // This finds all books where the author string matches the Author's name
-    return await api.get(authorName);
     }
 
     async addReview(bookId: string, review: any) {

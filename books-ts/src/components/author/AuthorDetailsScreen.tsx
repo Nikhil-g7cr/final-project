@@ -5,9 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const AuthorDetailsScreen = () => {
   const { id } = useParams<{ id: string }>();
-
   const navigate = useNavigate();
-
   const { deleteAuthorById, getAuthorById } = useAuthorProvider();
 
   const handleDelete = async (authorId: string) => {

@@ -65,7 +65,6 @@ function App() {
     <div className="App">
       <Header title="Book's Store" nav={mainMenu} />
       <Routes>
-        {/* 🟢 PUBLIC ROUTES (Anyone can access) */}
         <Route path="/" element={<HomePage />} />
         <Route path="/books" element={<BookListScreen />} />
         <Route path="/books/:id" element={<BookDetailsScreen />} />
@@ -74,14 +73,12 @@ function App() {
         <Route path="/user/login" element={<UserLoginScreen />} />
         <Route path="/user/register" element={<UserRegisterScreen />} />
 
-        {/* 🟡 LOGGED-IN USERS ONLY (Must be authenticated) */}
         <Route element={<ProtectedRoute />}>
           <Route path="/books/add" element={<BookAddScreen />} />
           <Route path="/authors/add" element={<AuthorAddScreen />} />
           <Route path="/favorites" element={<FavoriteBooksScreen />} />
         </Route>
 
-        {/* 🔴 ADMIN ONLY ROUTES (Must be logged in AND have the "admin" role) */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/admin/users" element={<UserManagementScreen />} />
@@ -89,7 +86,6 @@ function App() {
           <Route path="/authors/approve" element={<AuthorManagment />} />
         </Route>
 
-        {/* 404 Route */}
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>
     </div>

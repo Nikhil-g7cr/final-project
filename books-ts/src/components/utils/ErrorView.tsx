@@ -41,7 +41,6 @@ interface ErrorViewProps{
 }
 
 const ErrorView = ({error, errorMap}:ErrorViewProps) => {
-    //component logic here
     const defaultErrorMap={
       //  400: Error400,
         401: Error401,

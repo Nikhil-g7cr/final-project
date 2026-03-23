@@ -13,8 +13,6 @@ export const createStore = (model:any)=>({
     error:null
 })
 
-//let userLoginActionCreator = asyncActionCreator("user", dispatch, userService.login)
-
 export const createAsyncAction=(actionType:string, dispatch:Function, actionFn:Function)=>{
 
     return async (...params:any[] )=>{

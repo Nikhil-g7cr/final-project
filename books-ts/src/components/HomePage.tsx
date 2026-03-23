@@ -27,7 +27,6 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Authors Card */}
         <div className="col-md-4 mb-4">
           <div className="card shadow h-100 text-center">
             <div className="card-body">

@@ -13,7 +13,6 @@ interface AsyncActionProps{
 }
 
 const AsyncAction = ({promise,id, children,onLoading, onError}:AsyncActionProps) => {
-    //component logic here
     const [status,setStatus]=useState("loading")
     const [error,setError]=useState<any>(null)
     const [data, setData] = useState<any>(null)
@@ -28,7 +27,7 @@ const AsyncAction = ({promise,id, children,onLoading, onError}:AsyncActionProps)
         setStatus('loading')
         
         setError(null)
-        promise//==>
+        promise
         .then(data=>{
             console.log("asyncAction inside the useEffect")
             setData(data)

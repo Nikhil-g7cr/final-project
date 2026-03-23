@@ -29,6 +29,16 @@ class AuthorService {
         let response = await api.post(uri, author);
         return response.data;
     }
+    
+    async getPendingAuthors(): Promise<Author[]> {
+        let response = await api.get(`${uri}/admin/pending`);
+        return response.data;
+    }
+
+    async approveAuthor(_id: string): Promise<Author> {
+        let response = await api.patch(`${uri}/${_id}/approve`, {});
+        return response.data;
+    }
 }
 
 export default new AuthorService();

@@ -19,13 +19,6 @@ export interface ValidationModel{
     validations: ValidationFunction
 }
 
-// export class ValidationModel{
-//     constructor(dataType, defaultValue, ...validations){
-//         this.dataType=dataType,
-//         this.defaultValue=defaultValue,
-//         this.validations=validations;
-//     }
-// }
 
 
 
