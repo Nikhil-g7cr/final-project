@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import type { Author } from "../../types/Author";
-import type { Book } from "../../types/Book"; // Import Book type
+import type { Book } from "../../types/Book"; 
 import Spacer from "../utils/Spacer";
 import type { Status } from "../../types/Status";
 import AuthenticatedLink from "../utils/AuthenticatedLink";
-import BookCard from "../books/BookCard"; // Import BookCard
-import BookService from "../../services/BookService"; // Import BookService
+import BookCard from "../books/BookCard"; 
+import BookService from "../../services/BookService";
 
 interface IdSelectorFunction<T> {
   (id: T): void;
@@ -26,11 +26,9 @@ const AuthorDetails = ({
   status,
   error,
 }: AuthorDetailsProps) => {
-  // Add state to hold the author's books
   const [booksByAuthor, setBooksByAuthor] = useState<Book[]>([]);
   const [booksLoading, setBooksLoading] = useState(false);
 
-  // Fetch books when the author data changes
   useEffect(() => {
     if (author && author.name) {
       setBooksLoading(true);
@@ -78,7 +76,6 @@ const AuthorDetails = ({
         </div>
       </div>
       
-      {/* ADD THIS SECTION TO RENDER BOOKS */}
       <Spacer height="30px" />
       <div className="author-books-section">
         <h3>Books by {author.name}</h3>
@@ -89,7 +86,7 @@ const AuthorDetails = ({
         ) : (
             <div className="row">
                 {booksByAuthor.map((book) => (
-                    <div className="col col-4 mb-3" key={book._id}>
+                    <div className="col col-2 mb-3" key={book._id}>
                         <BookCard book={book} />
                     </div>
                 ))}

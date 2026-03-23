@@ -14,6 +14,7 @@ const UserRegisterScreen = (props: UserRegisterScreenProps) => {
     name: "",
     email: "",
     password: "",
+    photo:""
   });
 
   const { register, status, error } = useUserProvider();
@@ -22,6 +23,7 @@ const UserRegisterScreen = (props: UserRegisterScreenProps) => {
     name: "",
     email: "",
     password: "",
+    photo:""
   });
 
   const handleChange = (value: string, id: string) => {
@@ -31,7 +33,7 @@ const UserRegisterScreen = (props: UserRegisterScreenProps) => {
 
   const validate = () => {
     let isValid = true;
-    let newErrors = { name: "", email: "", password: "" };
+    let newErrors = { name: "", email: "", password: "", photo: "" };
 
     if (!registerInfo.name.trim()) {
       newErrors.name = "Name is required";
@@ -70,6 +72,7 @@ const UserRegisterScreen = (props: UserRegisterScreenProps) => {
       name: registerInfo.name,
       email: registerInfo.email,
       password: registerInfo.password,
+      photo: registerInfo.photo,
       // roles: ["user"],
     };
 
@@ -104,6 +107,13 @@ const UserRegisterScreen = (props: UserRegisterScreenProps) => {
         {errors.password && (
           <span className="text-danger">{errors.password}</span>
         )}
+
+        <LabeledInput
+          id="photo"
+          value={registerInfo.photo}
+          onChange={handleChange}
+        />
+        {errors.photo && <span className="text-danger">{errors.photo}</span>}
 
         <Spacer height={10} />
         <button className="form-element btn btn-primary" type="submit">
