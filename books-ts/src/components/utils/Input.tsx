@@ -19,6 +19,7 @@ export interface LabeledInputProps{
     errorMessage?:string,
     label?:string,
     inputBuilder?:Function
+    disabled?:boolean
 }
 
 interface InputProps{
@@ -28,6 +29,7 @@ interface InputProps{
     type:string,
     className:string,
     placeholder:string,
+    disabled?:boolean
     
 }
 
@@ -36,7 +38,8 @@ export const LabeledInput = ({ id, value, onChange,
     type = 'text', label = id, placeholder = label, 
     errorMessage = "", 
     inputClassName = "", labelClassName = "", groupClassName = "", 
-    inputBuilder
+    inputBuilder,
+    disabled= false
 }:LabeledInputProps) => {
 
     const [innerValue, setInnerValue] = useState<Object>(value)
@@ -62,7 +65,7 @@ export const LabeledInput = ({ id, value, onChange,
         <div className={`form-group ${groupClassName}`}>
             <label className={labelClassName} htmlFor={id}>{label}</label>
 
-            {inputBuilder({id,value:innerValue,onChange:handleChange,className:`form-control ${inputClassName}`,type,placeholder})}
+            {inputBuilder({id,value:innerValue,onChange:handleChange,className:`form-control ${inputClassName}`,type,placeholder,disabled})}
             < small id="infoSection" className="form-text  text-danger">{errorMessage}</small>
 
         </div >

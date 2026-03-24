@@ -5,7 +5,7 @@ import AuthorDisplay from "./components/author/AuthorDisplay";
 import BookAddScreen from "./components/books/BookAddScreen";
 import BookDetailsScreen from "./components/books/BookDetailsScreen";
 import BookListScreen from "./components/books/BookListScreen";
-import BookManagementScreen from "./components/books/_BookManagementScreen";
+import BookManagementScreen from "./components/books/BookUpdateScreen";
 import Header from "./components/Header";
 import UserLoginScreen from "./components/users/UserLoginScreen";
 import UserRegisterScreen from "./components/users/UserRegisterScreen";
@@ -24,6 +24,7 @@ import AuthorManagment from "./components/author/AuthorManagment";
 import ProtectedRoute from "./components/utils/ProtectedRoutes";
 import Profile from "./components/utils/Profile";
 import AuthorUpdateScreen from "./components/author/AuthorUpdateScreen";
+import BookUpdateScreen from "./components/books/BookUpdateScreen";
 
 function App() {
   const { logout } = useUserProvider();
@@ -85,6 +86,7 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/admin/users" element={<UserManagementScreen />} />
+          <Route path="/books/update/:id" element={<BookUpdateScreen />} />
           <Route path="/books/approve" element={<BookManagment />} />
           <Route path="/authors/update/:id" element={<AuthorUpdateScreen />} />
           <Route path="/authors/approve" element={<AuthorManagment />} />

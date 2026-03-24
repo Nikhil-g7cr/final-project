@@ -69,6 +69,16 @@ const BookDetails = ({ book, onDelete, status, error }: BookDetailsProps) => {
             Delete
           </AuthenticatedLink>
           <Spacer height="10px" />
+          <AuthenticatedLink
+            linkVisibility="authenticated"
+            allowedRoles={["admin", "librarian"]}
+            className="btn btn-primary form-control"
+            // onClick={}
+            to={`/books/update/${book._id}`}
+          >
+            Update
+          </AuthenticatedLink>
+          <Spacer height="10px" />
 
           <AuthenticatedLink
             linkVisibility="authenticated"

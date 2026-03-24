@@ -64,6 +64,12 @@ class BookService {
         return response.data;
     }
 
+    async updateBookById(id:string, book:Book){
+        let response = await api.put(`${uri}/${id}`,book)
+
+        return response.data;
+    }
+
 }
 
 export default new BookService()
