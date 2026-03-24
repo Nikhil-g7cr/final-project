@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { LabeledInput } from "../utils/Input";
 import {
   maxLength,
   minLength,
@@ -6,12 +6,6 @@ import {
   validate,
   ValidationSummaryError,
 } from "../../services/validation";
-import ErrorView from "./ErrorView";
-import LabeledInput from "./Input";
-import Loading from "./Loading";
-import type { Author } from "../../types/Author";
-import authorService from "../../services/AuthorService";
-import { useNavigate, useParams } from "react-router-dom";
 
 const authorValidationModel = {
   name: {
@@ -32,205 +26,135 @@ const authorValidationModel = {
   },
 };
 
-const AuthorForm = ({}) => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">(
-    "loading",
-  );
-  const [validationErrors, setValidationErrors] = useState<any>({});
-  const [error, setError] = useState<Error | null>(null);
-
-  const [author, setAuthor] = useState<Partial<Author>>({
-    _id: "",
-    name: "",
-    image: "",
-    biography: "",
-    tags: [],
-  });
-
-  useEffect(() => {
-    if (id) {
-      authorService
-        .getAuthorById(id)
-        .then((fetchedAuthor) => {
-          setAuthor(fetchedAuthor);
-          setStatus("idle");
-        })
-        .catch((err) => {
-          setError(err);
-          setStatus("error");
-        });
-    }
-  }, [id]);
-
-  const handleInputChange = (value: string, fieldId: string) => {
-    const updatedAuthor = { ...author, [fieldId]: value };
+const AuthorForm = ({
+  author,
+  setAuthor,
+  validationErrors,
+  setValidationErrors,
+  onSubmit,
+  heading,
+  isEdit = false,
+}: any) => {
+  const handleInputChange = (value: string, id: string) => {
+    const updatedAuthor = { ...author, [id]: value };
     setAuthor(updatedAuthor);
 
     try {
-      validate(updatedAuthor, authorValidationModel, fieldId);
+      validate(updatedAuthor, authorValidationModel, id);
+
       setValidationErrors((prev: any) => {
         const updatedErrors = { ...prev };
-        delete updatedErrors[fieldId];
+        delete updatedErrors[id];
         return updatedErrors;
       });
-    } catch (err) {
-      if (err instanceof ValidationSummaryError) {
+    } catch (error) {
+      if (error instanceof ValidationSummaryError) {
         setValidationErrors((prev: any) => ({
           ...prev,
-          [fieldId]: err.info.errors[fieldId],
+          [id]: error.info.errors[id],
         }));
       }
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const validationPayload = {
-        ...author,
-        tags: author.tags?.length ? author.tags.join(",") : "",
-      };
-      validate(validationPayload, authorValidationModel, "");
-    } catch (err) {
-      if (err instanceof ValidationSummaryError) {
-        setValidationErrors(err.info.errors);
-        return;
-      }
-    }
-
-    try {
-      setStatus("loading");
-      const payload = { ...author };
-
-      await authorService.updateAuthorById(id!, payload);
-      setStatus("done");
-      navigate(`/authors/${id}`);
-    } catch (err: any) {
-      setStatus("error");
-      setError(new Error(err.response?.data?.message || err.message));
-    }
-  };
-
-  if (status === "loading")
-    return <Loading message="Loading author details..." />;
-  if (status === "error") return <ErrorView error={error!} />;
-
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="form">
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <LabeledInput
-              id="_id"
-              label="Author ID"
-              value={author._id || ""}
-              onChange={() => {}}
-              placeholder="Author ID"
-              inputClassName="bg-light text-muted" // Make it look disabled
-            />
-          </div>
-        </div>
+    <div className="BookAddScreen">
+      <h2>{heading}</h2>
 
-        <div className="row mb-3">
-          <div className="col-md-12">
+      <form onSubmit={onSubmit} className="form">
+        {!isEdit && (
+          <div className="row">
+            <div className="col col-6">
+              <LabeledInput
+                id="_id"
+                label="Author ID"
+                value={author._id || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="row">
+          <div className="col">
             <LabeledInput
               id="name"
               label="Name"
               value={author.name || ""}
               onChange={handleInputChange}
-              placeholder="Enter author name"
               errorMessage={validationErrors.name}
             />
           </div>
         </div>
 
-        <div className="row mb-3">
-          <div className="col-md-12">
+        <div className="row">
+          <div className="col">
             <LabeledInput
               id="image"
               label="Photo URL"
               value={author.image || ""}
               onChange={handleInputChange}
-              placeholder="Enter photo URL"
               errorMessage={validationErrors.image}
             />
           </div>
         </div>
 
-        <div className="row mb-3">
-          <div className="col-md-12">
-            <label htmlFor="biography" className="form-label">
-              Biography
-            </label>
+        <div className="row">
+          <div className="col">
+            <label htmlFor="biography">Biography</label>
             <textarea
-              id="biography"
-              className={`form-control ${validationErrors.biography ? "is-invalid" : ""}`}
+              className="form-control"
               value={author.biography || ""}
               onChange={(e) => handleInputChange(e.target.value, "biography")}
-              placeholder="Enter author biography (min 20 characters)"
-              rows={4}
+              placeholder="Biography"
             />
-            {validationErrors.biography && (
-              <small className="form-text text-danger">
-                {validationErrors.biography}
-              </small>
-            )}
+            <small className="text-danger">{validationErrors.biography}</small>
           </div>
         </div>
 
-        <div className="row mb-3">
-          <div className="col-md-12">
+        <div className="row">
+          <div className="col">
             <LabeledInput
               id="tags"
-              label="Tags (Comma separated)"
+              label="Tags"
               value={author.tags?.join(", ") || ""}
-              errorMessage={validationErrors.tags}
               onChange={(value) => {
-                const newTags = value
+                const tags = value
                   .split(",")
-                  .map((tag) => tag.trim())
-                  .filter((tag) => tag !== "");
-                const updatedAuthor = { ...author, tags: newTags };
-                setAuthor(updatedAuthor);
+                  .map((t) => t.trim())
+                  .filter(Boolean);
+
+                setAuthor({ ...author, tags });
 
                 try {
                   validate(
-                    { ...updatedAuthor, tags: value },
+                    { ...author, tags: value },
                     authorValidationModel,
                     "tags",
                   );
+
                   setValidationErrors((prev: any) => {
-                    const newErrors = { ...prev };
-                    delete newErrors.tags;
-                    return newErrors;
+                    const updatedErrors = { ...prev };
+                    delete updatedErrors.tags;
+                    return updatedErrors;
                   });
-                } catch (err) {
-                  if (err instanceof ValidationSummaryError) {
+                } catch (error) {
+                  if (error instanceof ValidationSummaryError) {
                     setValidationErrors((prev: any) => ({
                       ...prev,
-                      tags: err.info.errors.tags,
+                      tags: error.info.errors.tags,
                     }));
                   }
                 }
               }}
-              placeholder="e.g. fiction, mystery, bestseller"
+              errorMessage={validationErrors.tags}
             />
           </div>
         </div>
 
-        <div className="row mt-4">
-          <div className="col-md-12">
-            <button
-              type="submit"
-              className="btn btn-primary form-control fw-bold py-2"
-            >
-              Save Changes
-            </button>
-          </div>
-        </div>
+        <button className="btn btn-success mt-3">
+          {isEdit ? "Update Author" : "Add Author"}
+        </button>
       </form>
     </div>
   );

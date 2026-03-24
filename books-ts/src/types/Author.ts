@@ -1,8 +1,8 @@
 export interface Author {
-  _id: string;
+  _id?: string;
   name: string;
   biography: string;
   image: string;
-  books:string;
+  // books:string;
   tags?: string[];
 }
