@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  maxLength,
+  minLength,
+  required,
+  validate,
+  ValidationSummaryError,
+} from "../../services/validation";
+import ErrorView from "./ErrorView";
+import LabeledInput from "./Input";
+import Loading from "./Loading";
 import type { Author } from "../../types/Author";
 import authorService from "../../services/AuthorService";
-import { LabeledInput } from "../utils/Input";
-import Loading from "../utils/Loading";
-import ErrorView from "../utils/ErrorView";
-import { maxLength, minLength, required, validate, ValidationSummaryError } from "../../services/validation";
+import { useNavigate, useParams } from "react-router-dom";
 
-// Reusing the exact same validation model from AuthorAddScreen
 const authorValidationModel = {
   name: {
     validators: [required("Author name is required")],
@@ -19,7 +24,7 @@ const authorValidationModel = {
     validators: [
       required("Author biography is required"),
       minLength(20, "Biography must be at least 20 characters long."),
-      maxLength(2000, "Biography should not exceed 2000 characters.")
+      maxLength(2000, "Biography should not exceed 2000 characters."),
     ],
   },
   tags: {
@@ -27,11 +32,12 @@ const authorValidationModel = {
   },
 };
 
-const AuthorUpdateScreen = () => {
-  const { id } = useParams<{ id: string }>(); // 1. Get ID from URL
+const AuthorForm = ({}) => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
-  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("loading");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">(
+    "loading",
+  );
   const [validationErrors, setValidationErrors] = useState<any>({});
   const [error, setError] = useState<Error | null>(null);
 
@@ -39,13 +45,14 @@ const AuthorUpdateScreen = () => {
     _id: "",
     name: "",
     image: "",
-    biography: "", 
+    biography: "",
     tags: [],
   });
 
   useEffect(() => {
     if (id) {
-      authorService.getAuthorById(id)
+      authorService
+        .getAuthorById(id)
         .then((fetchedAuthor) => {
           setAuthor(fetchedAuthor);
           setStatus("idle");
@@ -72,7 +79,7 @@ const AuthorUpdateScreen = () => {
       if (err instanceof ValidationSummaryError) {
         setValidationErrors((prev: any) => ({
           ...prev,
-          [fieldId]: err.info.errors[fieldId]
+          [fieldId]: err.info.errors[fieldId],
         }));
       }
     }
@@ -80,48 +87,47 @@ const AuthorUpdateScreen = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const validationPayload = {
         ...author,
-        tags: author.tags?.length ? author.tags.join(",") : ""
+        tags: author.tags?.length ? author.tags.join(",") : "",
       };
       validate(validationPayload, authorValidationModel, "");
     } catch (err) {
       if (err instanceof ValidationSummaryError) {
         setValidationErrors(err.info.errors);
-        return; 
+        return;
       }
     }
 
     try {
       setStatus("loading");
       const payload = { ...author };
-      
+
       await authorService.updateAuthorById(id!, payload);
       setStatus("done");
-      navigate(`/authors/${id}`); 
+      navigate(`/authors/${id}`);
     } catch (err: any) {
       setStatus("error");
       setError(new Error(err.response?.data?.message || err.message));
     }
   };
 
-  if (status === "loading") return <Loading message="Loading author details..." />;
+  if (status === "loading")
+    return <Loading message="Loading author details..." />;
   if (status === "error") return <ErrorView error={error!} />;
 
   return (
-    <div className="BookAddScreen container mt-4">
-      <h2>Update Author Details</h2>
+    <div>
       <form onSubmit={handleSubmit} className="form">
-        
         <div className="row mb-3">
           <div className="col-md-6">
             <LabeledInput
               id="_id"
               label="Author ID"
               value={author._id || ""}
-              onChange={() => {}} 
+              onChange={() => {}}
               placeholder="Author ID"
               inputClassName="bg-light text-muted" // Make it look disabled
             />
@@ -160,19 +166,21 @@ const AuthorUpdateScreen = () => {
               Biography
             </label>
             <textarea
-              id="biography" 
-              className={`form-control ${validationErrors.biography ? 'is-invalid' : ''}`}
-              value={author.biography || ""} 
-              onChange={(e) => handleInputChange(e.target.value, "biography")} 
-              placeholder="Enter author biography (min 20 characters)" 
+              id="biography"
+              className={`form-control ${validationErrors.biography ? "is-invalid" : ""}`}
+              value={author.biography || ""}
+              onChange={(e) => handleInputChange(e.target.value, "biography")}
+              placeholder="Enter author biography (min 20 characters)"
               rows={4}
             />
             {validationErrors.biography && (
-                <small className="form-text text-danger">{validationErrors.biography}</small>
+              <small className="form-text text-danger">
+                {validationErrors.biography}
+              </small>
             )}
           </div>
         </div>
-        
+
         <div className="row mb-3">
           <div className="col-md-12">
             <LabeledInput
@@ -181,12 +189,19 @@ const AuthorUpdateScreen = () => {
               value={author.tags?.join(", ") || ""}
               errorMessage={validationErrors.tags}
               onChange={(value) => {
-                const newTags = value.split(',').map(tag => tag.trim()).filter(tag => tag !== "");
+                const newTags = value
+                  .split(",")
+                  .map((tag) => tag.trim())
+                  .filter((tag) => tag !== "");
                 const updatedAuthor = { ...author, tags: newTags };
                 setAuthor(updatedAuthor);
 
                 try {
-                  validate({ ...updatedAuthor, tags: value }, authorValidationModel, "tags");
+                  validate(
+                    { ...updatedAuthor, tags: value },
+                    authorValidationModel,
+                    "tags",
+                  );
                   setValidationErrors((prev: any) => {
                     const newErrors = { ...prev };
                     delete newErrors.tags;
@@ -194,7 +209,10 @@ const AuthorUpdateScreen = () => {
                   });
                 } catch (err) {
                   if (err instanceof ValidationSummaryError) {
-                    setValidationErrors((prev: any) => ({ ...prev, tags: err.info.errors.tags }));
+                    setValidationErrors((prev: any) => ({
+                      ...prev,
+                      tags: err.info.errors.tags,
+                    }));
                   }
                 }
               }}
@@ -205,7 +223,10 @@ const AuthorUpdateScreen = () => {
 
         <div className="row mt-4">
           <div className="col-md-12">
-            <button type="submit" className="btn btn-primary form-control fw-bold py-2">
+            <button
+              type="submit"
+              className="btn btn-primary form-control fw-bold py-2"
+            >
               Save Changes
             </button>
           </div>
@@ -215,4 +236,4 @@ const AuthorUpdateScreen = () => {
   );
 };
 
-export default AuthorUpdateScreen;
+export default AuthorForm;

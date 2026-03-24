@@ -39,6 +39,11 @@ class AuthorService {
         let response = await api.patch(`${uri}/${_id}/approve`, {});
         return response.data;
     }
+
+    async updateAuthorById(id:string,author:Author){
+        let response = await api.put(`${uri}/${id}`,author)
+        return response.data;
+    }
 }
 
 export default new AuthorService();

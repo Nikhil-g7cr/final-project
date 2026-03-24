@@ -50,6 +50,7 @@ export const AuthorProvider = ({ children }: AuthorProviderProps) => {
     getAllAuthors: createAsyncAction("getAllAuthors", dispatch, AuthorService.getAllAuthors),
     getAuthorById: createAsyncAction("getAuthorById", dispatch, AuthorService.getAuthorById),
     deleteAuthorById: createAsyncAction("deleteAuthorById", dispatch, AuthorService.deleteAuthorById),
+    updateAuthorById:createAsyncAction("updateAuthorById", dispatch, AuthorService.updateAuthorById),
     addAuthorBy: createAsyncAction("addAuthorBy", dispatch, AuthorService.addAuthorBy),
   };
 
