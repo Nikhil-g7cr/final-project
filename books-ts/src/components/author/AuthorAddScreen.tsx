@@ -9,6 +9,7 @@ const AuthorAddScreen = () => {
   const navigate = useNavigate();
 
   const [author, setAuthor] = useState({
+    _id:"",
     name: "",
     image: "",
     biography: "",

@@ -9,7 +9,6 @@ import AuthenticatedLink from "../utils/AuthenticatedLink";
 import BookCard from "../books/BookCard"; 
 import BookService from "../../services/BookService";
 import Loading from "../utils/Loading";
-import AuthorUpdateScreen from "./AuthorUpdateScreen";
 
 interface IdSelectorFunction<T> {
   (id: T): void;
